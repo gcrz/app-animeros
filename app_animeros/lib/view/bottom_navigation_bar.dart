@@ -17,7 +17,7 @@ class BottomNavigationBarState extends State<MyBottomNavigationBar> {
   List<Widget> _pages = [
     Column(),
     //MyHomePage(),
-    Column(),
+    UserStatistics(),
     Column(),
     UserAnimeList(),
     UserProfile(),
