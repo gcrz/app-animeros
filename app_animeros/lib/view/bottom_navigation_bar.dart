@@ -19,7 +19,7 @@ class BottomNavigationBarState extends State<MyBottomNavigationBar> {
     //MyHomePage(),
     Column(),
     Column(),
-    Column(),
+    UserAnimeList(),
     UserProfile(),
   ];
 
@@ -39,8 +39,7 @@ class BottomNavigationBarState extends State<MyBottomNavigationBar> {
                 icon: Icon(Icons.home), label: "Pagina inicial"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.leaderboard), label: "Estatísticas"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.search), label: "Procura"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Procura"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.list_sharp), label: "Lista de animes"),
             BottomNavigationBarItem(
