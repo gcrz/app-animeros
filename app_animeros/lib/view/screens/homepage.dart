@@ -9,6 +9,14 @@ class MyHomePage extends StatelessWidget {
     "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx116588-dZlzrABT4ttC.jpg"
   ];
 
+  final teste = [
+    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
+    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
+    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
+    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
+    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
+  ];
+
   final animeTitles = [
     "Joshiraku",
     "Nichijou",
@@ -20,15 +28,14 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        child: Column(
-          children: [
-            generateTitle(),
-            generateSeasonalAnimeList(),
-          ],
-        ),
-      )
-    );
+        child: Container(
+      child: Column(
+        children: [
+          generateTitle(),
+          generateSeasonalAnimeList(),
+        ],
+      ),
+    ));
   }
 
   Widget generateTitle() {
@@ -44,16 +51,23 @@ class MyHomePage extends StatelessWidget {
   }
 
   Widget generateSeasonalAnimeList() {
-    return ListView.builder(
-        itemCount: seasonalAnimesImages.length,
-        itemBuilder: (context, index) {
-          return Card(
-            color: Colors.blue,elevation: 10,
-            child: ListTile(
-              title: Text(animeTitles[index]),
-              leading: Image.network(seasonalAnimesImages[index]),
-            )
-          );
-        });
+    return Expanded(
+      child: ListView.builder(
+          // itemCount: seasonalAnimesImages.length,
+          itemCount: teste.length,
+          itemBuilder: (context, index) {
+            return Card(
+                color: Colors.blue,
+                elevation: 10,
+                child: ListTile(
+                  title: Text(animeTitles[index]),
+                  leading: Image.network(
+                    teste[index],
+                    width: 50,
+                    height: 50,
+                  ),
+                ));
+          }),
+    );
   }
 }
