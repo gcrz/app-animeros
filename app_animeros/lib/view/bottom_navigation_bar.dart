@@ -15,9 +15,8 @@ class MyBottomNavigationBar extends StatefulWidget {
 class BottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _currentPage = 0;
   List<Widget> _pages = [
-    Column(),
-    //MyHomePage(),
-    Column(),
+    MyHomePage(),
+    UserStatistics(),
     Column(),
     UserAnimeList(),
     UserProfile(),
