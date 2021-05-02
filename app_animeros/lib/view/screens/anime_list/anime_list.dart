@@ -1,3 +1,4 @@
+import 'package:app_animeros/view/screens/anime_list/anime_page.dart';
 import 'package:flutter/material.dart';
 
 class UserAnimeList extends StatelessWidget {
@@ -155,12 +156,21 @@ class UserAnimeList extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
-                        child: Image.network(
-                          teste1[index],
-                          width: 50,
-                          height: 50,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AnimePage()));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
+                          child: Image.network(
+                            teste1[index],
+                            width: 50,
+                            height: 50,
+                            semanticLabel: "Imagem de $animeTitles[index]",
+                          ),
                         ),
                       ),
                     ],
