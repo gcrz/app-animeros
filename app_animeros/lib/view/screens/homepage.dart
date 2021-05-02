@@ -54,7 +54,7 @@ class MyHomePage extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
           // itemCount: seasonalAnimesImages.length,
-          itemCount: teste.length,
+          itemCount: seasonalAnimesImages.length,
           itemBuilder: (context, index) {
             return Card(
                 color: Colors.blue,
@@ -62,7 +62,7 @@ class MyHomePage extends StatelessWidget {
                 child: ListTile(
                   title: Text(animeTitles[index]),
                   leading: Image.network(
-                    teste[index],
+                    seasonalAnimesImages[index],
                     width: 50,
                     height: 50,
                   ),
