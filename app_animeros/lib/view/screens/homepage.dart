@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app_animeros/view/screens/anime_list/anime_page.dart';
 
 class MyHomePage extends StatelessWidget {
   final seasonalAnimesImages = [
@@ -10,11 +11,11 @@ class MyHomePage extends StatelessWidget {
   ];
 
   final teste = [
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
+    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
+    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
+    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
+    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
+    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
   ];
 
   final animeTitles = [
@@ -60,6 +61,10 @@ class MyHomePage extends StatelessWidget {
                 color: Colors.blue,
                 elevation: 10,
                 child: ListTile(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AnimePage()));
+                  },
                   title: Text(animeTitles[index]),
                   leading: Image.network(
                     teste[index],
