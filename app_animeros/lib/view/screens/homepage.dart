@@ -29,13 +29,11 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Container(
-      child: Column(
-        children: [
-          generateTitle(),
-          generateSeasonalAnimeList(),
-        ],
-      ),
+        child: Column(
+      children: [
+        generateTitle(),
+        generateSeasonalAnimeList(),
+      ],
     ));
   }
 
@@ -55,23 +53,56 @@ class MyHomePage extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
           // itemCount: seasonalAnimesImages.length,
+          // scrollDirection: Axis.horizontal,
+          // shrinkWrap: true,
           itemCount: teste.length,
           itemBuilder: (context, index) {
-            return Card(
-                color: Colors.blue,
-                elevation: 10,
-                child: ListTile(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AnimePage()));
-                  },
-                  title: Text(animeTitles[index]),
-                  leading: Image.network(
-                    teste[index],
-                    width: 50,
-                    height: 50,
-                  ),
-                ));
+            return Container(
+              width: 300,
+              height: 200,
+              padding: EdgeInsets.all(10),
+              child: Card(
+                  color: Colors.blue,
+                  elevation: 10,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AnimePage()));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          teste[index],
+                          width: 225,
+                          height: 150,
+                        ),
+                        Flexible(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 10, bottom: 10),
+                                  child: Text(
+                                    animeTitles[index],
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Text(
+                                  "Studio X",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Text("Data de lançamento",
+                                    style: TextStyle(fontSize: 18))
+                              ]),
+                        )
+                      ],
+                    ),
+                  )),
+            );
           }),
     );
   }
