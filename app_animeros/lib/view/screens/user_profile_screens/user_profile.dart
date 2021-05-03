@@ -1,4 +1,5 @@
 import 'package:app_animeros/view/screens/user_profile_screens/user_config.dart';
+import 'package:app_animeros/view/screens/register_login_screens/user_login.dart';
 import 'package:flutter/material.dart';
 
 class UserProfile extends StatefulWidget {
@@ -19,6 +20,7 @@ class _UserProfileState extends State<UserProfile> {
         Divider(),
         accountConfiguration(),
         help(),
+        logout()
       ],
     );
   }
@@ -135,5 +137,14 @@ class _UserProfileState extends State<UserProfile> {
         },
       ),
     );
+  }
+
+  Widget logout() {
+    return ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => UserLogin()));
+        },
+        child: Text("Logout"));
   }
 }
