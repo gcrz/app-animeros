@@ -1,5 +1,6 @@
 import 'package:app_animeros/view/screens/homepage.dart';
 import 'package:app_animeros/view/screens/anime_list/anime_list.dart';
+import 'package:app_animeros/view/screens/search_page.dart';
 import 'package:app_animeros/view/screens/statistics.dart';
 import 'package:app_animeros/view/screens/user_profile_screens/user_profile.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class BottomNavigationBarState extends State<MyBottomNavigationBar> {
   List<Widget> _pages = [
     MyHomePage(),
     UserStatistics(),
-    Column(),
+    SearchPage(),
     UserAnimeList(),
     UserProfile(),
   ];
