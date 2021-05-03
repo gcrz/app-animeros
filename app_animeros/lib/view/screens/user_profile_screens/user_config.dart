@@ -10,6 +10,7 @@ class _UserConfigState extends State<UserConfig> {
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
+  bool darkModeEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,35 @@ class _UserConfigState extends State<UserConfig> {
       key: formKey,
       child: Column(
         children: [
+          generateDarkModeSwitch(),
           generateChangeEmailTextField(),
           generateChangeUsenameTextFiled(),
           generateUpdateButton()
         ],
       ),
+    );
+  }
+
+  Widget generateDarkModeSwitch() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: Text("Modo Escuro: "),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Switch(
+            value: darkModeEnabled,
+            onChanged: (bool inValue) {
+              setState(() {
+                darkModeEnabled = inValue;
+              });
+            },
+          ),
+        )
+      ],
     );
   }
 
