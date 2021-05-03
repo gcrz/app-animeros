@@ -6,21 +6,20 @@ class UserConfig extends StatefulWidget {
 }
 
 class _UserConfigState extends State<UserConfig> {
-
+  BuildContext _context;
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("ANIMEROS"),
-        centerTitle: true,
-      ),
-      body: generateConfigForm()
-    );
+        appBar: AppBar(
+          title: Text("ANIMEROS"),
+          centerTitle: true,
+        ),
+        body: generateConfigForm());
   }
 
   Widget generateConfigForm() {
@@ -42,9 +41,7 @@ class _UserConfigState extends State<UserConfig> {
       child: TextFormField(
         controller: emailController,
         decoration: InputDecoration(
-          border: UnderlineInputBorder(),
-          hintText: "Insira seu e-mail"
-        ),
+            border: UnderlineInputBorder(), hintText: "Insira seu e-mail"),
       ),
     );
   }
@@ -55,9 +52,8 @@ class _UserConfigState extends State<UserConfig> {
       child: TextFormField(
         controller: usernameController,
         decoration: InputDecoration(
-          border: UnderlineInputBorder(),
-          hintText: "Insira seu nome de usuário"
-        ),
+            border: UnderlineInputBorder(),
+            hintText: "Insira seu nome de usuário"),
       ),
     );
   }
@@ -71,20 +67,51 @@ class _UserConfigState extends State<UserConfig> {
         color: Colors.indigo,
         child: Expanded(
           child: TextButton(
-            onPressed: () {
-              
-            },
-            style: TextButton.styleFrom(
-              primary: Colors.white
-            ),
-            child: Text("Atualizar")
-          ),
+              onPressed: () {
+                showDialog(
+                  context: _context,
+                  builder: (context) {
+                    if (usernameController.text != "") {
+                      return generateNameEmailVerificationDialog();
+                    } else {
+                      return generateInvalidNameEmailDialog();
+                    }
+                  }
+                );
+              },
+              style: TextButton.styleFrom(primary: Colors.white),
+              child: Text("Atualizar")),
         ),
       ),
     );
   }
 
-  
+  Widget generateNameEmailVerificationDialog() {
+    return AlertDialog(
+      title: Text("Informações atualizadas"),
+      content: Text(
+          "Nome de usuário: ${usernameController.text}\nemail: ${emailController.text}"),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Sair"))
+      ],
+    );
+  }
 
+  Widget generateInvalidNameEmailDialog() {
+    return AlertDialog(
+      title: Text("Informações atualizadas"),
+      content: Text("Insira nome e email válido"),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Sair"))
+      ],
+    );
+  }
 }
-
