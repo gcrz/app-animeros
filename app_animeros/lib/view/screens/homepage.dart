@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app_animeros/view/screens/anime_list/anime_page.dart';
 
 class MyHomePage extends StatelessWidget {
   final seasonalAnimesImages = [
@@ -7,14 +8,6 @@ class MyHomePage extends StatelessWidget {
     "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx117193-yZUKig9K220H.jpg",
     "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx119661-yHjL0A9oavem.png",
     "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx116588-dZlzrABT4ttC.jpg"
-  ];
-
-  final teste = [
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
-    "https://animesonehd.xyz/wp-content/uploads/2019/10/Hunter-x-Hunter-online-em-HD.jpg",
   ];
 
   final animeTitles = [
@@ -28,13 +21,11 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Container(
-      child: Column(
-        children: [
-          generateTitle(),
-          generateSeasonalAnimeList(),
-        ],
-      ),
+        child: Column(
+      children: [
+        generateTitle(),
+        generateSeasonalAnimeList(),
+      ],
     ));
   }
 
@@ -53,20 +44,60 @@ class MyHomePage extends StatelessWidget {
   Widget generateSeasonalAnimeList() {
     return Expanded(
       child: ListView.builder(
-          // itemCount: seasonalAnimesImages.length,
           itemCount: seasonalAnimesImages.length,
           itemBuilder: (context, index) {
-            return Card(
-                color: Colors.blue,
-                elevation: 10,
-                child: ListTile(
-                  title: Text(animeTitles[index]),
-                  leading: Image.network(
-                    seasonalAnimesImages[index],
-                    width: 50,
-                    height: 50,
-                  ),
-                ));
+            return Container(
+              width: 300,
+              height: 200,
+              padding: EdgeInsets.all(10),
+              child: Card(
+                  shadowColor: Colors.black,
+                  color: Colors.blue,
+                  elevation: 10,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AnimePage()));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Image.network(
+                              seasonalAnimesImages[index],
+                              height: 150,
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 12, bottom: 10),
+                                  child: Text(
+                                    animeTitles[index],
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Text(
+                                  "Studio X",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text("Data de lançamento",
+                                    style: TextStyle(fontSize: 16))
+                              ]),
+                        )
+                      ],
+                    ),
+                  )),
+            );
           }),
     );
   }
