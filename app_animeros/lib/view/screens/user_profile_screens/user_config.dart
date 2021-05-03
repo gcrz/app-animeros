@@ -69,15 +69,15 @@ class _UserConfigState extends State<UserConfig> {
           child: TextButton(
               onPressed: () {
                 showDialog(
-                  context: _context,
-                  builder: (context) {
-                    if (usernameController.text != "") {
-                      return generateNameEmailVerificationDialog();
-                    } else {
-                      return generateInvalidNameEmailDialog();
-                    }
-                  }
-                );
+                    context: _context,
+                    builder: (context) {
+                      if (usernameController.text != "" &&
+                          emailController.text != "") {
+                        return generateNameEmailVerificationDialog();
+                      } else {
+                        return generateInvalidNameEmailDialog();
+                      }
+                    });
               },
               style: TextButton.styleFrom(primary: Colors.white),
               child: Text("Atualizar")),
@@ -90,7 +90,7 @@ class _UserConfigState extends State<UserConfig> {
     return AlertDialog(
       title: Text("Informações atualizadas"),
       content: Text(
-          "Nome de usuário: ${usernameController.text}\nemail: ${emailController.text}"),
+          "email: ${emailController.text}\nNome de usuário: ${usernameController.text}\n"),
       actions: [
         TextButton(
             onPressed: () {
