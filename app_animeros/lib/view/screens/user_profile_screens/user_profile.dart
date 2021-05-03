@@ -1,9 +1,13 @@
 import 'package:app_animeros/view/screens/user_profile_screens/user_config.dart';
 import 'package:flutter/material.dart';
 
-class UserProfile extends StatelessWidget {
-  BuildContext _context;
+class UserProfile extends StatefulWidget {
+  @override
+  _UserProfileState createState() => _UserProfileState();
+}
 
+class _UserProfileState extends State<UserProfile> {
+  BuildContext _context;
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -21,7 +25,6 @@ class UserProfile extends StatelessWidget {
       ],
     );
   }
-
   Widget profileData() {
     return Expanded(
           child: Column(
@@ -154,3 +157,5 @@ class UserProfile extends StatelessWidget {
     );
   }
 }
+
+
