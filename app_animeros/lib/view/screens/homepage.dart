@@ -10,14 +10,6 @@ class MyHomePage extends StatelessWidget {
     "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx116588-dZlzrABT4ttC.jpg"
   ];
 
-  final teste = [
-    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
-    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
-    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
-    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
-    "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
-  ];
-
   final animeTitles = [
     "Joshiraku",
     "Nichijou",
@@ -52,16 +44,14 @@ class MyHomePage extends StatelessWidget {
   Widget generateSeasonalAnimeList() {
     return Expanded(
       child: ListView.builder(
-          // itemCount: seasonalAnimesImages.length,
-          // scrollDirection: Axis.horizontal,
-          // shrinkWrap: true,
-          itemCount: teste.length,
+          itemCount: seasonalAnimesImages.length,
           itemBuilder: (context, index) {
             return Container(
               width: 300,
               height: 200,
               padding: EdgeInsets.all(10),
               child: Card(
+                  shadowColor: Colors.black,
                   color: Colors.blue,
                   elevation: 10,
                   child: InkWell(
@@ -72,10 +62,15 @@ class MyHomePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.network(
-                          teste[index],
-                          width: 225,
-                          height: 150,
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Image.network(
+                              seasonalAnimesImages[index],
+                              height: 150,
+                            ),
+                          ),
                         ),
                         Flexible(
                           child: Column(
@@ -83,20 +78,20 @@ class MyHomePage extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 10, bottom: 10),
+                                      top: 12, bottom: 10),
                                   child: Text(
                                     animeTitles[index],
                                     style: TextStyle(
-                                        fontSize: 25,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 Text(
                                   "Studio X",
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 16),
                                 ),
                                 Text("Data de lançamento",
-                                    style: TextStyle(fontSize: 18))
+                                    style: TextStyle(fontSize: 16))
                               ]),
                         )
                       ],

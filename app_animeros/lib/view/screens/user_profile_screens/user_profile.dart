@@ -58,8 +58,7 @@ class UserProfile extends StatelessWidget {
         width: 100,
         child:
           Stack(
-            fit: StackFit.expand, 
-            overflow: Overflow.visible, 
+            clipBehavior: Clip.none, fit: StackFit.expand, 
             children: [
             CircleAvatar(),
             Positioned(

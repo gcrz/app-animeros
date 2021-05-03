@@ -10,7 +10,7 @@ class UserAnimeList extends StatelessWidget {
     "Sentouin, Hakenshimasu!",
   ];
 
-  final teste1 = [
+  final currentAnimeList = [
     "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
     "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
     "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
@@ -50,10 +50,10 @@ class UserAnimeList extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
                 onPressed: () => {
-                      teste(
-                          "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
-                          "10",
-                          "100")
+                      // teste(
+                      //     "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
+                      //     "10",
+                      //     "100")
                     },
                 child: Text(
                   "Todos",
@@ -64,10 +64,10 @@ class UserAnimeList extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
                 onPressed: () => {
-                      teste(
-                          "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
-                          "10",
-                          "100")
+                      // teste(
+                      //     "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
+                      //     "10",
+                      //     "100")
                     },
                 child: Text(
                   "Completo",
@@ -78,10 +78,10 @@ class UserAnimeList extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
                 onPressed: () => {
-                      teste(
-                          "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
-                          "10",
-                          "100")
+                      // teste(
+                      //     "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
+                      //     "10",
+                      //     "100")
                     },
                 child: Text(
                   "Assistindo",
@@ -92,10 +92,10 @@ class UserAnimeList extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
                 onPressed: () => {
-                      teste(
-                          "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
-                          "10",
-                          "100")
+                      // teste(
+                      //     "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
+                      //     "10",
+                      //     "100")
                     },
                 child: Text(
                   "Desisti",
@@ -106,10 +106,10 @@ class UserAnimeList extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
                 onPressed: () => {
-                      teste(
-                          "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
-                          "10",
-                          "100")
+                      // teste(
+                      //     "https://ibcdn.canaltech.com.br/XYTaHZXJZYOEMa_C3-605dhShK8=/1024x0/smart/i376287.jpeg",
+                      //     "10",
+                      //     "100")
                     },
                 child: Text(
                   "Planejo assistir",
@@ -121,27 +121,27 @@ class UserAnimeList extends StatelessWidget {
     );
   }
 
-  TableRow teste(String imageURL, String score, String watchedEpisodes) {
-    return TableRow(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.black, width: 1.0)),
-        children: [
-          Center(
-              child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Image.network(
-                    imageURL,
-                    width: 10,
-                    height: 10,
-                  ))),
-          Center(
-              child: Padding(padding: EdgeInsets.all(10), child: Text(score))),
-          Center(
-              child: Padding(
-                  padding: EdgeInsets.all(10), child: Text(watchedEpisodes)))
-        ]);
-  }
+  // TableRow teste(String imageURL, String score, String watchedEpisodes) {
+  //   return TableRow(
+  //       decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(10),
+  //           border: Border.all(color: Colors.black, width: 1.0)),
+  //       children: [
+  //         Center(
+  //             child: Padding(
+  //                 padding: EdgeInsets.all(10),
+  //                 child: Image.network(
+  //                   imageURL,
+  //                   width: 10,
+  //                   height: 10,
+  //                 ))),
+  //         Center(
+  //             child: Padding(padding: EdgeInsets.all(10), child: Text(score))),
+  //         Center(
+  //             child: Padding(
+  //                 padding: EdgeInsets.all(10), child: Text(watchedEpisodes)))
+  //       ]);
+  // }
 
   Widget tableTitleAnime() {
     return Expanded(
@@ -150,54 +150,60 @@ class UserAnimeList extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AnimePage()));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
-                          child: Image.network(
-                            teste1[index],
-                            width: 50,
-                            height: 50,
-                            semanticLabel: "Imagem de $animeTitles[index]",
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 150,
-                    // decoration: BoxDecoration(
-                    //   border: Border.all(color: Colors.black),
-                    // ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AnimePage()));
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 200,
-                          child: Text(
-                            animeTitles[index],
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AnimePage()));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
+                            child: Image.network(
+                              currentAnimeList[index],
+                              width: 50,
+                              height: 50,
+                              semanticLabel: "Imagem de $animeTitles[index]",
+                            ),
                           ),
                         ),
-                        Text("Nota"),
-                        Text("Episódios Assistidos")
                       ],
                     ),
-                  )
-                ],
+                    Container(
+                      height: 150,
+                      // decoration: BoxDecoration(
+                      //   border: Border.all(color: Colors.black),
+                      // ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 200,
+                            child: Text(
+                              animeTitles[index],
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Text("Nota"),
+                          Text("Episódios Assistidos")
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               Divider(
                 height: 2,

@@ -34,13 +34,12 @@ class BottomNavigationBarState extends State<MyBottomNavigationBar> {
         body: _pages[_currentPage],
         bottomNavigationBar: BottomNavigationBar(
           items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), label: "Pagina inicial"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Início"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.leaderboard), label: "Estatísticas"),
             BottomNavigationBarItem(icon: Icon(Icons.search), label: "Procura"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.list_sharp), label: "Lista de animes"),
+                icon: Icon(Icons.list_sharp), label: "Lista"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle), label: "Perfil"),
           ],
