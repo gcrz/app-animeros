@@ -1,4 +1,3 @@
-import 'package:app_animeros/main.dart';
 import 'package:flutter/material.dart';
 import 'package:app_animeros/view/bottom_navigation_bar.dart';
 import 'package:app_animeros/view/screens/register_login_screens/user_register.dart';
