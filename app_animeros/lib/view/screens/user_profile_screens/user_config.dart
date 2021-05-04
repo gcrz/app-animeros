@@ -119,7 +119,7 @@ class _UserConfigState extends State<UserConfig> {
       actions: [
         TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(_context);
             },
             child: Text("Sair"))
       ],
@@ -133,7 +133,7 @@ class _UserConfigState extends State<UserConfig> {
       actions: [
         TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(_context);
             },
             child: Text("Sair"))
       ],

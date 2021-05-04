@@ -161,10 +161,15 @@ class _AnimePageState extends State<AnimePage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(children: [
-              Text("Episódios assistidos"),
-              // TextField(obscureText: false)
-            ]),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Episódios assistidos")),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              keyboardType: TextInputType.number,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
