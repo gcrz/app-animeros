@@ -1,8 +1,8 @@
 import 'package:app_animeros/model/profile_info.dart';
 
 class MonitorState {
-  List<ProfileInfo> profileInfo;
+  List<ProfileInfo> profileInfoList;
   List<int> idList;
 
-  MonitorState({this.profileInfo, this.idList});
+  MonitorState({this.profileInfoList, this.idList});
 }
