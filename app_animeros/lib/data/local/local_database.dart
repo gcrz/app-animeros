@@ -12,7 +12,7 @@ class DatabaseLocalServer {
 
   static Database _database;
 
-  String profileInfoTable = "profile_info_table";
+  String profileInfoTable= "profile_info_table";
   String colId = "id";
   String colUsername = "username";
   String colEmail = "email";
@@ -61,10 +61,10 @@ class DatabaseLocalServer {
     return [profileList, idList];
   }
 
-  Future<int> updateProfileInfo(int noteId, ProfileInfo profileInfo) async {
+  Future<int> updateProfileInfo(int profileId, ProfileInfo profileInfo) async {
     Database db = await this.database;
     var result = await db.update(profileInfoTable, profileInfo.toMap(),
-        where: "$colId = ?", whereArgs: [noteId]);
+        where: "$colId = ?", whereArgs: [profileId]);
     notify();
     return result;
   }
