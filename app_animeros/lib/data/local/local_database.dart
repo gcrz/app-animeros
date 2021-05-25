@@ -61,14 +61,6 @@ class DatabaseLocalServer {
     return [profileList, idList];
   }
 
-  Future<int> updateProfileInfo(int profileId, ProfileInfo profileInfo) async {
-    Database db = await this.database;
-    var result = await db.update(profileInfoTable, profileInfo.toMap(),
-        where: "$colId = ?", whereArgs: [profileId]);
-    notify();
-    return result;
-  }
-
   notify() async {
     if (_controller != null) {
       var response = await getProfileList();

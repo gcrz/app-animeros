@@ -20,11 +20,7 @@ class _UserRegisterState extends State<UserRegister> {
   Widget build(BuildContext context) {
     return BlocBuilder<ManageLocalBloc, ManageState>(builder: (context, state) {
       ProfileInfo profileInfo;
-      if (state is UpdateState) {
-        profileInfo = state.oldProfileInfo;
-      } else {
-        profileInfo = new ProfileInfo();
-      }
+      profileInfo = new ProfileInfo();
 
       return MaterialApp(
         theme: ThemeData(
