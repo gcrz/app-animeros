@@ -12,16 +12,7 @@ class ManageLocalBloc extends Bloc<ManageEvent, ManageState> {
     if (event is SubmitEvent) {
       if (state is InsertState) {
         DatabaseLocalServer.helper.insertProfileInfo(event.profileInfo);
-      } else if (state is UpdateState) {
-        UpdateState updateState = state;
-        DatabaseLocalServer.helper
-            .updateProfileInfo(updateState.profileId, event.profileInfo);
-        yield InsertState();
       }
-      DatabaseLocalServer.helper.insertProfileInfo(event.profileInfo);
-    } else if (event is UpdateEvent) {
-      yield UpdateState(
-          profileId: event.profileId, oldProfileInfo: event.profileInfo);
     }
   }
 }

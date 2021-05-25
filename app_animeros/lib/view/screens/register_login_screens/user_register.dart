@@ -132,33 +132,33 @@ class _UserRegisterState extends State<UserRegister> {
                           profileInfo.password = passwordController.text;
                           BlocProvider.of<ManageLocalBloc>(context)
                               .add(SubmitEvent(profileInfo: profileInfo));
-                          var response =
-                              await DatabaseLocalServer.helper.getProfileList();
-                          // String registered = "";
-                          // for (int i = 0; i < response[0].length; i++) {
-                          //   registered += "Nome" + response[0][i];
-                          //   registered += "ID:" + response[1][i];
-                          // }
-
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                    title: Text("Cadastros realizados"),
-                                    content: Container(
-                                        child: SingleChildScrollView(
-                                            child: Text(response.toString()))),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text("Fechar")),
-                                    ]);
-                              });
                         },
                         child: Text("Cadastrar"),
                       ),
+                      ElevatedButton(
+                          onPressed: () async {
+                            var response = await DatabaseLocalServer.helper
+                                .getProfileList();
+
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                      title: Text("Cadastros realizados"),
+                                      content: Container(
+                                          child: SingleChildScrollView(
+                                              child:
+                                                  Text(response.toString()))),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("Fechar")),
+                                      ]);
+                                });
+                          },
+                          child: Text("Mostrar cadastros"))
                     ],
                   ),
                 ),

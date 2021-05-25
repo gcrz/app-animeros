@@ -26,7 +26,7 @@ class DatabaseLocalServer {
 
   Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + "profile.db";
+    String path = directory.path + "/profileInfos.db";
 
     Database profileDatabase =
         await openDatabase(path, version: 1, onCreate: _createDb);
@@ -57,6 +57,7 @@ class DatabaseLocalServer {
       profileList.add(profileInfo);
       idList.add(profileMapList[i]["id"]);
     }
+
     return [profileList, idList];
   }
 
