@@ -5,16 +5,23 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ManageLocalBloc extends Bloc<ManageEvent, ManageState> {
-  ManageLocalBloc() : super(UpdateState());
+  ManageLocalBloc() : super(InsertState());
 
   @override
   Stream<ManageState> mapEventToState(ManageEvent event) async* {
     if (event is SubmitEvent) {
+      if (state is InsertState) {
+        DatabaseLocalServer.helper.insertProfileInfo(event.profileInfo);
+      } else if (state is UpdateState) {
+        UpdateState updateState = state;
+        DatabaseLocalServer.helper
+            .updateProfileInfo(updateState.profileId, event.profileInfo);
+        yield InsertState();
+      }
       DatabaseLocalServer.helper.insertProfileInfo(event.profileInfo);
     } else if (event is UpdateEvent) {
-      DatabaseLocalServer.helper
-          .updateProfileInfo(event.profileId, event.profileInfo);
-      yield UpdateState(profileId: event.profileId, oldProfileInfo: event.profileInfo);
+      yield UpdateState(
+          profileId: event.profileId, oldProfileInfo: event.profileInfo);
     }
   }
 }

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:app_animeros/model/profile_info.dart';
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -12,7 +11,7 @@ class DatabaseLocalServer {
 
   static Database _database;
 
-  String profileInfoTable= "profile_info_table";
+  String profileInfoTable = "profile_info_table";
   String colId = "id";
   String colUsername = "username";
   String colEmail = "email";

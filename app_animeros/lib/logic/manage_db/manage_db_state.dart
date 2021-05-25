@@ -8,4 +8,4 @@ class UpdateState extends ManageState {
   UpdateState({this.profileId, this.oldProfileInfo});
 }
 
-class InsertState extends ManageState{}
+class InsertState extends ManageState {}

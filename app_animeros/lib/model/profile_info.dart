@@ -44,4 +44,8 @@ class ProfileInfo {
     map["email"] = _email;
     return map;
   }
+
+  String toString() {
+    return "Nome de usuário: $_username\nE-mail: $_email\nSenha: $_password\n";
+  }
 }
