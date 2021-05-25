@@ -145,7 +145,9 @@ class _UserRegisterState extends State<UserRegister> {
                               builder: (context) {
                                 return AlertDialog(
                                     title: Text("Cadastros realizados"),
-                                    content: Text(response.toString()),
+                                    content: Container(
+                                        child: SingleChildScrollView(
+                                            child: Text(response.toString()))),
                                     actions: [
                                       TextButton(
                                           onPressed: () {
