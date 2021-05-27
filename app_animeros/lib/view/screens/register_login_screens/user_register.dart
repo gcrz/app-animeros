@@ -136,6 +136,14 @@ class _UserRegisterState extends State<UserRegister> {
                             var response = await DatabaseLocalServer.helper
                                 .getProfileList();
 
+                            String registers = "";
+                            for (var register in response[0]) {
+                              registers +=
+                                  "Nome de usuário: ${register.username}\n";
+                              registers += "email: ${register.email}\n";
+                              registers += "senha: ${register.password}\n\n";
+                            }
+
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -143,8 +151,7 @@ class _UserRegisterState extends State<UserRegister> {
                                       title: Text("Cadastros realizados"),
                                       content: Container(
                                           child: SingleChildScrollView(
-                                              child:
-                                                  Text(response.toString()))),
+                                              child: Text(registers))),
                                       actions: [
                                         TextButton(
                                             onPressed: () {

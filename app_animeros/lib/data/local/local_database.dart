@@ -26,7 +26,7 @@ class DatabaseLocalServer {
 
   Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + "/profileInfos.db";
+    String path = directory.path + "/profileInfo_dt.db";
 
     Database profileDatabase =
         await openDatabase(path, version: 1, onCreate: _createDb);
@@ -38,6 +38,7 @@ class DatabaseLocalServer {
         "CREATE TABLE $profileInfoTable ($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colUsername TEXT, $colEmail TEXT, $colPassword TEXT)");
   }
 
+  // INSERÇÂO
   Future<int> insertProfileInfo(ProfileInfo profileInfo) async {
     Database db = await this.database;
     int result = await db.insert(profileInfoTable, profileInfo.toMap());
@@ -45,6 +46,7 @@ class DatabaseLocalServer {
     return result;
   }
 
+  // SELEÇÂO
   getProfileList() async {
     Database db = await this.database;
     var profileMapList = await db.rawQuery("SELECT * FROM $profileInfoTable");
