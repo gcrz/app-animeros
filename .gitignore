@@ -22,3 +22,7 @@ doc/api/
 
 # visual studio code directories
 .vscode
+
+# npm directoriess and files
+package-lock.json
+node_modules/

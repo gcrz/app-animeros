@@ -7,7 +7,9 @@ app.use(cors());
 // app.listen(2000);
 
 
-app.get('/', function(req, res){res.send('Hello world')});
+app.get('/', function(req, res){
+    res.send('Hello world')
+});
 
 /*
   Servidor propriamente dito
