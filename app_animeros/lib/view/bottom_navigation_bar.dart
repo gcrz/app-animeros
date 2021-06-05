@@ -1,4 +1,3 @@
-import 'package:app_animeros/logic/manage_db/manage_local_db_bloc.dart';
 import 'package:app_animeros/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:app_animeros/logic/monitor_db/monitor_db_bloc.dart';
 import 'package:app_animeros/view/screens/homepage.dart';
@@ -32,7 +31,6 @@ class BottomNavigationBarState extends State<MyBottomNavigationBar> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => MonitorBloc()),
-        BlocProvider(create: (_) => ManageLocalBloc()),
         BlocProvider(create: (_) => ManageRemoteBloc())
       ],
       child: MaterialApp(

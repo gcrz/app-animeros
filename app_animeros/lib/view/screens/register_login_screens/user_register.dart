@@ -1,7 +1,7 @@
-import 'package:app_animeros/data/local/local_database.dart';
+import 'package:app_animeros/data/remote/remote_database.dart';
 import 'package:app_animeros/logic/manage_db/manage_db_event.dart';
 import 'package:app_animeros/logic/manage_db/manage_db_state.dart';
-import 'package:app_animeros/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:app_animeros/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:app_animeros/model/profile_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +18,7 @@ class _UserRegisterState extends State<UserRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ManageLocalBloc, ManageState>(builder: (context, state) {
+    return BlocBuilder<ManageRemoteBloc, ManageState>(builder: (context, state) {
       ProfileInfo profileInfo;
       profileInfo = new ProfileInfo();
 
@@ -126,14 +126,14 @@ class _UserRegisterState extends State<UserRegister> {
                           profileInfo.username = usernameController.text;
                           profileInfo.email = emailController.text;
                           profileInfo.password = passwordController.text;
-                          BlocProvider.of<ManageLocalBloc>(context)
+                          BlocProvider.of<ManageRemoteBloc>(context)
                               .add(SubmitEvent(profileInfo: profileInfo));
                         },
                         child: Text("Cadastrar"),
                       ),
                       ElevatedButton(
                           onPressed: () async {
-                            var response = await DatabaseLocalServer.helper
+                            var response = await DatabaseRemoteServer.helper
                                 .getProfileList();
 
                             String registers = "";
