@@ -1,4 +1,6 @@
+import 'package:app_animeros/model/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserConfig extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class _UserConfigState extends State<UserConfig> {
   @override
   Widget build(BuildContext context) {
     _context = context;
+
     return Scaffold(
         appBar: AppBar(
           title: Text("ANIMEROS"),
@@ -38,6 +41,7 @@ class _UserConfigState extends State<UserConfig> {
   }
 
   Widget generateDarkModeSwitch() {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -48,10 +52,10 @@ class _UserConfigState extends State<UserConfig> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Switch(
-            value: darkModeEnabled,
-            onChanged: (bool inValue) {
+            value: themeChange.darkTheme,
+            onChanged: (bool value) {
               setState(() {
-                darkModeEnabled = inValue;
+                themeChange.darkTheme = value;
               });
             },
           ),
