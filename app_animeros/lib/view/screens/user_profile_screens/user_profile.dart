@@ -50,21 +50,10 @@ class _UserProfileState extends State<UserProfile> {
         height: 100,
         width: 100,
         child: Stack(clipBehavior: Clip.none, fit: StackFit.expand, children: [
-          CircleAvatar(),
-          Positioned(
-              right: -10,
-              bottom: 0,
-              child: SizedBox(
-                height: 35,
-                width: 35,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.add_photo_alternate,
-                    color: Colors.black,
-                  ),
-                ),
-              ))
+          Icon(
+            Icons.person,
+            size: 100,
+          ),
         ]),
       ),
     );
@@ -75,8 +64,8 @@ class _UserProfileState extends State<UserProfile> {
       height: 60,
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.black,
-        ),
+            // primary: Colors.black,
+            ),
         child: Row(
           children: [
             Padding(
@@ -104,8 +93,8 @@ class _UserProfileState extends State<UserProfile> {
       height: 60,
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.black,
-        ),
+            // primary: Colors.black,
+            ),
         child: Row(
           children: [
             Padding(

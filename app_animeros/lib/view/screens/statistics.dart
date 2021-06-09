@@ -33,7 +33,8 @@ class UserStatistics extends StatelessWidget {
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        color: Colors.green[300],
+        // color: Colors.green[300],
+        color: Color.fromRGBO(30, 250, 51, 1),
         elevation: 5,
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           const ListTile(
@@ -55,7 +56,8 @@ class UserStatistics extends StatelessWidget {
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        color: Colors.green[300],
+        // color: Colors.green[300],
+        color: Color.fromRGBO(30, 250, 51, 1),
         elevation: 5,
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           const ListTile(
@@ -77,7 +79,8 @@ class UserStatistics extends StatelessWidget {
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        color: Colors.green[300],
+        // color: Colors.green[300],
+        color: Color.fromRGBO(30, 250, 51, 1),
         elevation: 5,
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           const ListTile(
@@ -99,7 +102,8 @@ class UserStatistics extends StatelessWidget {
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        color: Colors.green[300],
+        // color: Colors.green[300],
+        color: Color.fromRGBO(30, 250, 51, 1),
         elevation: 5,
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           const ListTile(
