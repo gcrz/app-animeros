@@ -50,7 +50,9 @@ class _UserProfileState extends State<UserProfile> {
         height: 100,
         width: 100,
         child: Stack(clipBehavior: Clip.none, fit: StackFit.expand, children: [
-          CircleAvatar(),
+          CircleAvatar(
+            backgroundColor: Color.fromRGBO(246, 142, 95, 1),
+          ),
           Positioned(
               right: -10,
               bottom: 0,
@@ -61,7 +63,7 @@ class _UserProfileState extends State<UserProfile> {
                   onPressed: () {},
                   child: Icon(
                     Icons.add_photo_alternate,
-                    color: Colors.black,
+                    color: Colors.amber,
                   ),
                 ),
               ))
