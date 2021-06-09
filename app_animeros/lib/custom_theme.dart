@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
-      primarySwatch: Colors.red,
+      primarySwatch: Colors.grey,
       primaryColor: isDarkTheme ? Colors.black : Colors.white,
       backgroundColor: isDarkTheme ? Colors.black : Color(0xffF1F5FB),
       indicatorColor: isDarkTheme ? Color(0xff0E1D36) : Color(0xffCBDCF8),
@@ -20,7 +20,8 @@ class Styles {
       textTheme: TextTheme(
           bodyText1:
               TextStyle(color: isDarkTheme ? Colors.white : Colors.black)),
-      cardColor: isDarkTheme ? Color(0xFF151515) : Colors.white,
+      cardColor:
+          isDarkTheme ? Color(0xFF151515) : Color.fromRGBO(30, 250, 51, 1),
       canvasColor: isDarkTheme ? Color(0xFF2F323A) : Colors.grey[50],
       brightness: isDarkTheme ? Brightness.dark : Brightness.light,
       buttonTheme: Theme.of(context).buttonTheme.copyWith(

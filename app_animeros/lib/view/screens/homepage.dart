@@ -52,7 +52,7 @@ class MyHomePage extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: Card(
                   shadowColor: Colors.black,
-                  color: Colors.blue,
+                  // color: Colors.blue,
                   elevation: 10,
                   child: InkWell(
                     onTap: () {
