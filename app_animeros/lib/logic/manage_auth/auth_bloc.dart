@@ -25,12 +25,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event == null) {
         yield Unauthenticated();
       } else if (event is RegisterUser) {
-        _authenticationService.createUserWithEmailAndPassword(
+        await _authenticationService.createUserWithEmailAndPassword(
             email: event.username, password: event.password);
       } else if (event is LoginAnonymousUser) {
-        _authenticationService.signInAnonimo();
+        await _authenticationService.signInAnonimo();
       } else if (event is LoginUser) {
-        _authenticationService.signInWithEmailAndPassword(
+        await _authenticationService.signInWithEmailAndPassword(
             email: event.username, password: event.password);
       } else if (event is InnerServerEvent) {
         if (event.userModel == null) {
@@ -39,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           yield Authenticated(user: event.userModel);
         }
       } else if (event is Logout) {
-        _authenticationService.signOut();
+        await _authenticationService.signOut();
       }
     } catch (e) {
       yield AuthError(message: e.toString());

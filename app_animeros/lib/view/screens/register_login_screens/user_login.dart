@@ -93,11 +93,11 @@ class _UserLoginState extends State<UserLogin> {
                           if (formKey.currentState.validate()) {
                             formKey.currentState.save();
                             BlocProvider.of<AuthBloc>(context).add(loginData);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        MyBottomNavigationBar()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             MyBottomNavigationBar()));
                           }
                         },
                         child: Text("Login"),
