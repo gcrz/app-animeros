@@ -1,4 +1,4 @@
-import 'package:app_animeros/enums/anime_status.dart';
+import 'package:app_animeros/constants/enums.dart';
 
 class Anime {
   int id;
