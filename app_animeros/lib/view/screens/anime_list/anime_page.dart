@@ -111,10 +111,7 @@ class _AnimePageState extends State<AnimePage> {
                 alignment: Alignment.topLeft,
                 child: Text(
                   "Informações Gerais",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 )),
             Align(
                 alignment: Alignment.centerLeft,
@@ -138,10 +135,7 @@ class _AnimePageState extends State<AnimePage> {
                 alignment: Alignment.topLeft,
                 child: Text(
                   "Sinopse",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 )),
             Align(
                 alignment: Alignment.center,
@@ -161,10 +155,18 @@ class _AnimePageState extends State<AnimePage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(children: [
-              Text("Episódios assistidos"),
-              // TextField(obscureText: false)
-            ]),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Episódios assistidos",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              keyboardType: TextInputType.number,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
@@ -172,7 +174,10 @@ class _AnimePageState extends State<AnimePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Nota"),
+                Text(
+                  "Nota",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Slider(
                   min: 0,
                   max: 10,

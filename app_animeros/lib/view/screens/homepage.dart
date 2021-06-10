@@ -83,34 +83,30 @@ class MyHomePage extends StatelessWidget {
           itemCount: 20,
           // ignore: missing_return
           itemBuilder: (context, index) {
-            if (seasonalAnimes.anime[index].type == "TV") {
-              return Container(
-                width: 300,
-                height: 200,
-                padding: EdgeInsets.all(10),
-                child: Card(
-                    shadowColor: Colors.black,
-                    color: Colors.blue,
-                    elevation: 10,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AnimePage()));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: Image.network(
-                                seasonalAnimes.anime[index].imageUrl,
-                                height: 150,
-                                width: 100,
-                              ),
+
+            return Container(
+              width: 300,
+              height: 200,
+              padding: EdgeInsets.all(10),
+              child: Card(
+                  shadowColor: Colors.black,
+                  // color: Colors.blue,
+                  elevation: 10,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AnimePage()));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Image.network(
+                              seasonalAnimesImages[index],
+                              height: 150,
                             ),
                           ),
                           Flexible(

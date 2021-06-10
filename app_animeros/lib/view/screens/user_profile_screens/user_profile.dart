@@ -1,5 +1,9 @@
+import 'package:app_animeros/logic/manage_auth/auth_bloc.dart';
+import 'package:app_animeros/logic/manage_auth/auth_event.dart';
 import 'package:app_animeros/view/screens/user_profile_screens/user_config.dart';
+import 'package:app_animeros/view/screens/register_login_screens/user_login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -14,42 +18,31 @@ class _UserProfileState extends State<UserProfile> {
     return Column(
       children: [
         Row(
-          children: [
-            profileImage(),
-            profileData()
-          ],
+          children: [profileImage(), profileData()],
         ),
         Divider(),
         accountConfiguration(),
         help(),
+        logout()
       ],
     );
   }
+
   Widget profileData() {
     return Expanded(
-          child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Nome de Usuário",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Usuário cadastrado em 30 de Abril de 2021",
-                style: TextStyle(
-                  fontSize: 16
-                )
-              ),
-            ),
-          ]
+      child: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Nome de Usuário",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
         ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("E-mail", style: TextStyle(fontSize: 16)),
+        ),
+      ]),
     );
   }
 
@@ -59,27 +52,12 @@ class _UserProfileState extends State<UserProfile> {
       child: SizedBox(
         height: 100,
         width: 100,
-        child:
-          Stack(
-            clipBehavior: Clip.none, fit: StackFit.expand, 
-            children: [
-            CircleAvatar(),
-            Positioned(
-                right: -10,
-                bottom: 0,
-                child: SizedBox(
-                  height: 35,
-                  width: 35,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.add_photo_alternate,
-                      color: Colors.black,
-                    ),
-                  ),
-                ))
-          ]
-        ),
+        child: Stack(clipBehavior: Clip.none, fit: StackFit.expand, children: [
+          Icon(
+            Icons.person,
+            size: 100,
+          ),
+        ]),
       ),
     );
   }
@@ -89,8 +67,8 @@ class _UserProfileState extends State<UserProfile> {
       height: 60,
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.black,
-        ),
+            // primary: Colors.black,
+            ),
         child: Row(
           children: [
             Padding(
@@ -107,9 +85,7 @@ class _UserProfileState extends State<UserProfile> {
         ),
         onPressed: () {
           Navigator.push(
-            _context,
-            MaterialPageRoute(builder: (context) => UserConfig())
-          );
+              _context, MaterialPageRoute(builder: (context) => UserConfig()));
         },
       ),
     );
@@ -120,8 +96,8 @@ class _UserProfileState extends State<UserProfile> {
       height: 60,
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.black,
-        ),
+            // primary: Colors.black,
+            ),
         child: Row(
           children: [
             Padding(
@@ -138,24 +114,30 @@ class _UserProfileState extends State<UserProfile> {
         ),
         onPressed: () {
           showDialog(
-            context: _context, 
-            builder: (context) => AlertDialog(
-              title: Text("Ajuda"),
-              content: Text("Informações do aplicativo"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }, 
-                  child: Text("Sair")
-                )
-              ],
-            )
-          );
+              context: _context,
+              builder: (context) => AlertDialog(
+                    title: Text("Ajuda"),
+                    content: Text("Informações do aplicativo"),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("Sair"))
+                    ],
+                  ));
         },
       ),
     );
   }
+
+  Widget logout() {
+    return ElevatedButton(
+        onPressed: () {
+          BlocProvider.of<AuthBloc>(context).add(Logout());
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => UserLogin()));
+        },
+        child: Text("Logout"));
+  }
 }
-
-

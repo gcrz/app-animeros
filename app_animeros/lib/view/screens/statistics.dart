@@ -33,7 +33,8 @@ class UserStatistics extends StatelessWidget {
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        color: Colors.green[300],
+        // color: Colors.green[300],
+        color: Color.fromRGBO(30, 250, 51, 1),
         elevation: 5,
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           const ListTile(
@@ -55,7 +56,8 @@ class UserStatistics extends StatelessWidget {
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        color: Colors.green[300],
+        // color: Colors.green[300],
+        color: Color.fromRGBO(30, 250, 51, 1),
         elevation: 5,
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           const ListTile(
@@ -77,7 +79,8 @@ class UserStatistics extends StatelessWidget {
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        color: Colors.green[300],
+        // color: Colors.green[300],
+        color: Color.fromRGBO(30, 250, 51, 1),
         elevation: 5,
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           const ListTile(
@@ -99,7 +102,8 @@ class UserStatistics extends StatelessWidget {
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        color: Colors.green[300],
+        // color: Colors.green[300],
+        color: Color.fromRGBO(30, 250, 51, 1),
         elevation: 5,
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           const ListTile(
@@ -118,42 +122,68 @@ class UserStatistics extends StatelessWidget {
   }
 
   Widget generateBarChart() {
-    return SizedBox(
-      height: 240,
-      width: 360,
-      child: Padding(
-        padding: EdgeInsets.only(top: 30),
-        child: BarChart(BarChartData(
-            maxY: 10,
-            alignment: BarChartAlignment.center,
-            groupsSpace: 10,
-            barGroups: [
-              BarChartGroupData(x: 1, barsSpace: 2, barRods: [
-                BarChartRodData(
-                    y: 5, borderRadius: BorderRadius.circular(10), width: 10)
-              ]),
-              BarChartGroupData(x: 2, barsSpace: 2, barRods: [
-                BarChartRodData(
-                    y: 3, borderRadius: BorderRadius.circular(10), width: 10)
-              ]),
-              BarChartGroupData(x: 3, barsSpace: 2, barRods: [
-                BarChartRodData(
-                    y: 6, borderRadius: BorderRadius.circular(10), width: 10)
-              ]),
-              BarChartGroupData(x: 4, barsSpace: 2, barRods: [
-                BarChartRodData(
-                    y: 4, borderRadius: BorderRadius.circular(10), width: 10)
-              ]),
-              BarChartGroupData(x: 5, barsSpace: 2, barRods: [
-                BarChartRodData(
-                    y: 7, borderRadius: BorderRadius.circular(10), width: 10)
-              ]),
-              BarChartGroupData(x: 6, barsSpace: 2, barRods: [
-                BarChartRodData(
-                    y: 2, borderRadius: BorderRadius.circular(10), width: 10)
-              ]),
-            ])),
-      ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Text(
+            "Distribuição de notas",
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 240,
+            width: 240,
+            child: Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: BarChart(BarChartData(
+                  maxY: 10,
+                  alignment: BarChartAlignment.center,
+                  groupsSpace: 10,
+                  barGroups: [
+                    BarChartGroupData(x: 1, barsSpace: 2, barRods: [
+                      BarChartRodData(
+                          y: 5,
+                          borderRadius: BorderRadius.circular(10),
+                          width: 10)
+                    ]),
+                    BarChartGroupData(x: 2, barsSpace: 2, barRods: [
+                      BarChartRodData(
+                          y: 3,
+                          borderRadius: BorderRadius.circular(10),
+                          width: 10)
+                    ]),
+                    BarChartGroupData(x: 3, barsSpace: 2, barRods: [
+                      BarChartRodData(
+                          y: 6,
+                          borderRadius: BorderRadius.circular(10),
+                          width: 10)
+                    ]),
+                    BarChartGroupData(x: 4, barsSpace: 2, barRods: [
+                      BarChartRodData(
+                          y: 4,
+                          borderRadius: BorderRadius.circular(10),
+                          width: 10)
+                    ]),
+                    BarChartGroupData(x: 5, barsSpace: 2, barRods: [
+                      BarChartRodData(
+                          y: 7,
+                          borderRadius: BorderRadius.circular(10),
+                          width: 10)
+                    ]),
+                    BarChartGroupData(x: 6, barsSpace: 2, barRods: [
+                      BarChartRodData(
+                          y: 2,
+                          borderRadius: BorderRadius.circular(10),
+                          width: 10)
+                    ]),
+                  ])),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

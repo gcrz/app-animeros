@@ -1,4 +1,6 @@
+import 'package:app_animeros/model/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserConfig extends StatefulWidget {
   @override
@@ -10,10 +12,12 @@ class _UserConfigState extends State<UserConfig> {
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
+  bool darkModeEnabled = false;
 
   @override
   Widget build(BuildContext context) {
     _context = context;
+
     return Scaffold(
         appBar: AppBar(
           title: Text("ANIMEROS"),
@@ -27,11 +31,36 @@ class _UserConfigState extends State<UserConfig> {
       key: formKey,
       child: Column(
         children: [
+          generateDarkModeSwitch(),
           generateChangeEmailTextField(),
           generateChangeUsenameTextFiled(),
           generateUpdateButton()
         ],
       ),
+    );
+  }
+
+  Widget generateDarkModeSwitch() {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: Text("Modo Escuro: "),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Switch(
+            value: themeChange.darkTheme,
+            onChanged: (bool value) {
+              setState(() {
+                themeChange.darkTheme = value;
+              });
+            },
+          ),
+        )
+      ],
     );
   }
 
@@ -69,15 +98,15 @@ class _UserConfigState extends State<UserConfig> {
           child: TextButton(
               onPressed: () {
                 showDialog(
-                  context: _context,
-                  builder: (context) {
-                    if (usernameController.text != "") {
-                      return generateNameEmailVerificationDialog();
-                    } else {
-                      return generateInvalidNameEmailDialog();
-                    }
-                  }
-                );
+                    context: _context,
+                    builder: (context) {
+                      if (usernameController.text != "" &&
+                          emailController.text != "") {
+                        return generateNameEmailVerificationDialog();
+                      } else {
+                        return generateInvalidNameEmailDialog();
+                      }
+                    });
               },
               style: TextButton.styleFrom(primary: Colors.white),
               child: Text("Atualizar")),
@@ -90,11 +119,11 @@ class _UserConfigState extends State<UserConfig> {
     return AlertDialog(
       title: Text("Informações atualizadas"),
       content: Text(
-          "Nome de usuário: ${usernameController.text}\nemail: ${emailController.text}"),
+          "email: ${emailController.text}\nNome de usuário: ${usernameController.text}\n"),
       actions: [
         TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(_context);
             },
             child: Text("Sair"))
       ],
@@ -108,7 +137,7 @@ class _UserConfigState extends State<UserConfig> {
       actions: [
         TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(_context);
             },
             child: Text("Sair"))
       ],
