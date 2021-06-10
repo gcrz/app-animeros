@@ -142,11 +142,11 @@ class _UserRegisterState extends State<UserRegister> {
                             formKey.currentState.save();
                             BlocProvider.of<AuthBloc>(context)
                                 .add(registerData);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        MyBottomNavigationBar()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             MyBottomNavigationBar()));
                           }
                         },
                         child: Text("Cadastrar"),
