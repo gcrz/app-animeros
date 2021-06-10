@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'logic/manage_auth/auth_bloc.dart';
 
+// colocar o google-services.json
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -17,6 +19,5 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntermediateAuth();
-    
   }
 }
