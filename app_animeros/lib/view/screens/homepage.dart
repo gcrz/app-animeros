@@ -1,35 +1,15 @@
 import 'package:app_animeros/data/jikan_api_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:app_animeros/view/screens/anime_list/anime_page.dart';
-import 'package:jikan_api/jikan_api.dart';
-import 'package:connectivity/connectivity.dart';
 
 // ignore: must_be_immutable
 class MyHomePage extends StatelessWidget {
-  Season seasonalAnimes;
   bool isConected = false;
 
-  void setSeason() async {
-    seasonalAnimes =
-        await JikanApiDataProvider.helper.getSeason(2020, SeasonType.summer);
-  }
-
-  void checkConnection() async {
-    var connectResult = await Connectivity().checkConnectivity();
-    if (connectResult == ConnectivityResult.mobile ||
-        connectResult == ConnectivityResult.wifi) {
-      isConected = true;
-      print("isConnected: " + isConected.toString());
-    } else {
-      isConected = false;
-      print("isConnected: " + isConected.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     setSeason();
-    checkConnection();
     return Center(
         child: Column(
       children: [
@@ -109,6 +89,7 @@ class MyHomePage extends StatelessWidget {
                               height: 150,
                             ),
                           ),
+                        ),
                           Flexible(
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
