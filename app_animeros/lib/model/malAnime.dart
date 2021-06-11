@@ -18,6 +18,16 @@ class MalAnime {
       this.episodes,
       this.genres});
 
+  MalAnime.fromMap(Map<String, dynamic> map) {
+    this.malId = map["malid"];
+    this.title = map["title"];
+    this.imageUrl = map["image_url"];
+    this.type = map["type"];
+    this.airingStart = map["airing_start"];
+    this.episodes = map["episodes"];
+    this.genres = map["genres"];
+  }
+
   Map<String, dynamic> toMap() {
     Map malAnimeMap = Map();
     malAnimeMap['mal_id'] = malId;
@@ -32,6 +42,6 @@ class MalAnime {
 
   @override
   String toString() {
-    return "title: ${title}";
+    return "title: ${title}\n";
   }
 }

@@ -21,31 +21,31 @@ class JikanApiDataProvider {
     Dio dio = await dioDataProvider;
     Response response =
         await dio.request("https://api.jikan.moe/v3/anime/${malId}");
-    MalAnime anime = MalAnime(
-      malId: response.data["malid"],
-      title: response.data["title"],
-      imageUrl: response.data["image_url"],
-      type: response.data["type"],
-      airingStart: response.data["airing_start"],
-      episodes: response.data["episodes"],
-      genres: response.data["genres"],
-    );
+    MalAnime anime = MalAnime.fromMap(response.data);
     return anime;
   }
 
   /*
+   * @param year - ano da temporada. Ex: 2020
    * @param season - temporada. Pode ser summer, spring, fall ou winter
    * 
+   * @return model Season com as especificações passadas pelos parâmetros
    */
   Future<Season> getSeason(int year, String season) async {
     Dio dio = await dioDataProvider;
     Response response = await dio.request(
         "https://api.jikan.moe/v3/season/${year.toString()}/${season}");
 
-    Season _season = Season(response.data['anime']);
+    Season _season = Season(
+        year: year, seasonType: season, animeList: response.data['anime']);
     return _season;
   }
 
+  /*
+   * @param query - string de consulta de busca. Ex: One piece
+   * 
+   * @return 
+   */
   Future<List> getSearchAsList(String query) async {
     Dio dio = await dioDataProvider;
     var response =
@@ -53,28 +53,10 @@ class JikanApiDataProvider {
     List animes = [];
 
     response.data['results'].forEach((element) {
-      MalAnime anime = MalAnime(
-        malId: response.data["malid"],
-        title: response.data["title"],
-        imageUrl: response.data["image_url"],
-        type: response.data["type"],
-        airingStart: response.data["airing_start"],
-        episodes: response.data["episodes"],
-        genres: response.data["genres"],
-      );
+      MalAnime anime = MalAnime.fromMap(element);
       animes.add(anime);
     });
 
     return animes;
   }
-}
-
-void main() async {
-  JikanApiDataProvider provider = JikanApiDataProvider.helper;
-  MalAnime anime = await provider.getAnime(12679);
-  Season season = await provider.getSeason(2021, 'spring');
-  List search = await provider.getSearchAsList('one piece');
-  print(anime);
-  print(season);
-  print(search);
 }

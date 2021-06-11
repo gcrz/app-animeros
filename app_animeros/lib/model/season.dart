@@ -1,13 +1,16 @@
 import 'malAnime.dart';
 
 class Season {
+  int year;
+  String seasonType; // summer spring fall winter
   List animeList;
 
-  Season(List animes) {
+  Season({this.animeList, this.seasonType, this.year}) {
     List animesTV = [];
-    animes.forEach((element) {
+    animeList.forEach((element) {
       if (element['continuing'] == false && element['type'] == 'TV') {
-        animesTV.add(element);
+        MalAnime anime = MalAnime.fromMap(element);
+        animesTV.add(anime);
       }
     });
     animeList = animesTV;
@@ -15,6 +18,6 @@ class Season {
 
   @override
   String toString() {
-    return animeList.toString();
+    return "year: ${year}\nseason: ${seasonType}\nanimes: ${animeList.toString()}\n";
   }
 }
