@@ -7,59 +7,67 @@ class FirebaseRemoteServer {
   FirebaseRemoteServer._createInstance();
 
   final CollectionReference animeList =
-      FirebaseFirestore.instance.collection("userAnimeList");
+      FirebaseFirestore.instance.collection("user");
 
   //Falta a model Anime
-  List _animeListFromSnapshot(QuerySnapshot snapshot){
+  List _animeListFromSnapshot(QuerySnapshot snapshot) {
     List<Anime> animeList = [];
-    List<String> idList = [];
+    // List<String> idList = [];
 
-     for (var doc in snapshot.docs) {
-      // Anime anime = Anime.fromMap(doc.data());
-      // animeList.add(anime);
+    for (var doc in snapshot.docs) {
+      Anime anime = Anime.fromMap(doc.data());
+      animeList.add(anime);
       // idList.add(doc.id);
     }
-    return [animeList, idList];
+    // return [animeList, idList];
+    // print(animeList[0].malId);
+    return animeList;
   }
 
   // Future<int> insertProfileInfo(Anime anime) async{}
 
   // Future<int> updateProfileInfo(int profileId, Anime anime) async {}
 
-  insertAnime(Anime anime) async{
-    await animeList.doc(uid).collection("my_list").add(
-      {
-        "malId": anime.malId,
-        "status": anime.status,
-        "watchedEpisodes": anime.watchedEpisodes,
-        "score": anime.score
-      }
-    );
+  insertAnime(Anime anime) async {
+    await animeList.doc(uid).collection("my_list").add({
+      "malId": anime.malId,
+      "status": anime.status,
+      "watchedEpisodes": anime.watchedEpisodes,
+      "score": anime.score
+    });
   }
 
-  updateAnime(int animeId, Anime anime) async{
-    await animeList.doc(uid).collection("my_list").doc("$animeId").update({"malId": anime.malId,
-        "status": anime.status,
-        "watchedEpisodes": anime.watchedEpisodes,
-        "score": anime.score});
+  updateAnime(int animeId, Anime anime) async {
+    await animeList.doc(uid).collection("my_list").doc("$animeId").update({
+      "malId": anime.malId,
+      "status": anime.status,
+      "watchedEpisodes": anime.watchedEpisodes,
+      "score": anime.score
+    });
   }
 
-  Future<int> getAnimeListAll() async{
-    QuerySnapshot snapshot = await animeList.doc(uid).collection("my_list").get();
+  Future<List<Anime>> getAnimeListAll() async {
+    QuerySnapshot snapshot =
+        await animeList.doc(uid).collection("my_list").get();
+    return _animeListFromSnapshot(snapshot);
   }
 
-  Future<int> getAnimeListWatched() async{}
-  
-  Future<int> getAnimeListWatching() async{}
+  Future<int> getAnimeListWatched() async {}
 
-  Future<int> getAnimeListDropped() async{}
+  Future<int> getAnimeListWatching() async {}
 
-  Future<int> getAnimeListPlanToWatch() async{}
+  Future<int> getAnimeListDropped() async {}
 
-  Future<int> getUserStatistics() async{}
+  Future<int> getAnimeListPlanToWatch() async {}
+
+  Future<int> getUserStatistics() async {}
 
   // STREAM
-  Stream get stream{
-    return animeList.doc(uid).collection("my_list").snapshots().map(_animeListFromSnapshot);
+  Stream get stream {
+    return animeList
+        .doc(uid)
+        .collection("my_list")
+        .snapshots()
+        .map(_animeListFromSnapshot);
   }
 }

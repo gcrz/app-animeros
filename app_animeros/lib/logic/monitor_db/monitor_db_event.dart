@@ -1,4 +1,11 @@
+import 'package:app_animeros/model/anime.dart';
+
 abstract class MonitorEvent {}
+
+class UpdateList extends MonitorEvent {
+  List<Anime> animeList;
+  UpdateList({this.animeList});
+}
 
 class AskAllList extends MonitorEvent {}
 

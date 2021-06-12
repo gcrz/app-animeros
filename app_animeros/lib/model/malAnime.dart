@@ -19,7 +19,7 @@ class MalAnime {
       this.genres});
 
   MalAnime.fromMap(Map<String, dynamic> map) {
-    this.malId = map["malid"];
+    this.malId = map["mal_id"];
     this.title = map["title"];
     this.imageUrl = map["image_url"];
     this.type = map["type"];

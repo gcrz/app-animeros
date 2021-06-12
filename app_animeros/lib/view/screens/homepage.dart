@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {
                       // season.animeList[index].title;
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AnimePage(animeTitle:season.animeList[index].title.toString(), animeUrlImage: season.animeList[index].imageUrl.toString(),)));
+                          MaterialPageRoute(builder: (context) => AnimePage(animeMalId: season.animeList[index].malId,)));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -215,7 +215,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                         ? "Carregando"
                                         : getCorrectFormatDate(season
                                             .animeList[index].airingStart),
-                                    style: TextStyle(fontSize: 16))
+                                    style: TextStyle(fontSize: 16)),
+                                    // TESTE
+                                // Text(season.animeList == null
+                                //         ? "Carregando"
+                                //         : season
+                                //             .animeList[index].malId.toString(),
+                                //     style: TextStyle(fontSize: 16)),
                               ]),
                         )
                       ],

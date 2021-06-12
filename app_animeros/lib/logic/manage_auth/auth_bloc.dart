@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_animeros/auth_provider/firebase_auth.dart';
+import 'package:app_animeros/data/firebase_database.dart';
 import 'package:app_animeros/logic/manage_auth/auth_event.dart';
 import 'package:app_animeros/logic/manage_auth/auth_state.dart';
 import 'package:app_animeros/model/user.dart';
@@ -36,6 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (event.userModel == null) {
           yield Unauthenticated();
         } else {
+          FirebaseRemoteServer.uid = event.userModel.uid;
           yield Authenticated(user: event.userModel);
         }
       } else if (event is Logout) {

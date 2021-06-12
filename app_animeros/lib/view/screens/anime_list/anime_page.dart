@@ -1,17 +1,19 @@
 import 'package:app_animeros/constants/enums.dart';
+import 'package:app_animeros/data/jikan_api_data_provider.dart';
 import 'package:app_animeros/logic/manage_db/manage_db_event.dart';
 import 'package:app_animeros/logic/manage_db/manage_db_state.dart';
 import 'package:app_animeros/logic/manage_db/manage_firebase_db_bloc.dart';
 import 'package:app_animeros/model/anime.dart';
+import 'package:app_animeros/model/malAnime.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AnimePage extends StatefulWidget {
-  final String animeTitle;
-  final String animeUrlImage;
+  // final String animeTitle;
+  // final String animeUrlImage;
+  final int animeMalId;
 
-  AnimePage({Key key, @required this.animeTitle, @required this.animeUrlImage})
-      : super(key: key);
+  AnimePage({Key key, @required this.animeMalId}) : super(key: key);
 
   @override
   _AnimePageState createState() => _AnimePageState();
@@ -19,51 +21,69 @@ class AnimePage extends StatefulWidget {
 
 class _AnimePageState extends State<AnimePage> {
   Anime anime = Anime();
-
-  double animeScore = 10;
+  MalAnime malAnime = MalAnime();
+  double animeScore = 0;
   String status;
   bool isSaveButtonDisabled = true;
 
   final watchedEpisodes = TextEditingController();
 
+  Future<MalAnime> getAnimeByMalId(int malId) async {
+    JikanApiDataProvider jikan = JikanApiDataProvider.helper;
+    malAnime = await jikan.getAnime(malId);
+    setState(() {});
+    return malAnime;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.animeMalId);
     return BlocBuilder<ManageFirebaseBloc, ManageState>(
       builder: (context, state) {
-        return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.animeTitle),
-              centerTitle: true,
-            ),
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Center(
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      animeStatus(),
-                      Divider(
-                        height: 2,
-                        color: Colors.grey,
-                      ),
-                      scoreAndWatched(),
-                      Divider(
-                        height: 2,
-                        color: Colors.grey,
-                      ),
-                      synopsis(),
-                      Divider(
-                        height: 2,
-                        color: Colors.grey,
-                      ),
-                      genreClassification(),
-                      buttons(),
-                    ],
+        return FutureBuilder(
+          future: getAnimeByMalId(widget.animeMalId),
+          builder: (context, snapshot) {
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return CircularProgressIndicator();
+            // }
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    malAnime.title,
                   ),
+                  centerTitle: true,
                 ),
-              ),
-            ));
+                body: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Center(
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          animeStatus(),
+                          Divider(
+                            height: 2,
+                            color: Colors.grey,
+                          ),
+                          scoreAndWatched(),
+                          Divider(
+                            height: 2,
+                            color: Colors.grey,
+                          ),
+                          synopsis(),
+                          Divider(
+                            height: 2,
+                            color: Colors.grey,
+                          ),
+                          genreClassification(),
+                          buttons(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ));
+          },
+        );
       },
     );
   }
@@ -75,7 +95,7 @@ class _AnimePageState extends State<AnimePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.network(
-            widget.animeUrlImage,
+            malAnime.imageUrl,
             width: 200,
             height: 200,
           ),
@@ -87,7 +107,7 @@ class _AnimePageState extends State<AnimePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      widget.animeTitle,
+                      malAnime.title,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       overflow: TextOverflow.fade,
@@ -129,6 +149,7 @@ class _AnimePageState extends State<AnimePage> {
                           ),
                           onChanged: (String value) {
                             setState(() {
+                              status = value;
                               AnimeStatus watchedStatus = AnimeStatus.watched;
                               print(watchedStatus);
                               switch (value) {
@@ -283,6 +304,7 @@ class _AnimePageState extends State<AnimePage> {
                 onPressed: isSaveButtonDisabled
                     ? null
                     : () {
+                        anime.malId = widget.animeMalId;
                         BlocProvider.of<ManageFirebaseBloc>(context)
                             .add(InsertEvent(anime: anime));
                         return showDialog(

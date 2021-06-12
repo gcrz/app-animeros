@@ -1,5 +1,8 @@
+import 'package:app_animeros/logic/monitor_db/monitor_db_bloc.dart';
+import 'package:app_animeros/logic/monitor_db/monitor_db_state.dart';
 import 'package:app_animeros/view/screens/anime_list/anime_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserAnimeList extends StatelessWidget {
   final animeTitles = [
@@ -20,22 +23,26 @@ class UserAnimeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Sua lista de animes",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                )),
+    return BlocBuilder<MonitorBloc, MonitorState>(
+      builder: (context, state) {
+        return Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Sua lista de animes",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    )),
+              ),
+              horizontalClassView(),
+              tableTitleAnime(state.animeList),
+            ],
           ),
-          horizontalClassView(),
-          tableTitleAnime(),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -138,10 +145,12 @@ class UserAnimeList extends StatelessWidget {
   //       ]);
   // }
 
-  Widget tableTitleAnime() {
+  Widget tableTitleAnime(animeList) {
+    // print(animeList[0]);
     return Expanded(
       child: ListView.builder(
-        itemCount: animeTitles.length,
+        // itemCount: animeTitles.length,
+        itemCount: animeList.length,
         itemBuilder: (context, index) {
           return Column(
             children: <Widget>[
@@ -177,9 +186,6 @@ class UserAnimeList extends StatelessWidget {
                     ),
                     Container(
                       height: 150,
-                      // decoration: BoxDecoration(
-                      //   border: Border.all(color: Colors.black),
-                      // ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,8 +198,8 @@ class UserAnimeList extends StatelessWidget {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          Text("Nota"),
-                          Text("Episódios Assistidos")
+                          Text("Episódios assistidos: ${animeList[index].watchedEpisodes.toString()}"),
+                          Text("Nota: ${animeList[index].score.toString()}")
                         ],
                       ),
                     )

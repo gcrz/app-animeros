@@ -57,7 +57,7 @@ class BottomNavigationBarState extends State<MyBottomNavigationBar> {
                       providers: [
                         BlocProvider(create: (_) => ManageFirebaseBloc()),
                         BlocProvider(create: (_) => AuthBloc()),
-                        // BlocProvider(create: (_) => MonitorBloc(initialState)),
+                        BlocProvider(create: (_) => MonitorBloc()),
                       ],
                       child: BlocProvider<AuthBloc>(
               create: (context) => AuthBloc(),
