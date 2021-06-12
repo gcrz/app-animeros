@@ -1,4 +1,10 @@
+import 'package:app_animeros/constants/enums.dart';
+import 'package:app_animeros/logic/manage_db/manage_db_event.dart';
+import 'package:app_animeros/logic/manage_db/manage_db_state.dart';
+import 'package:app_animeros/logic/manage_db/manage_firebase_db_bloc.dart';
+import 'package:app_animeros/model/anime.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AnimePage extends StatefulWidget {
   final String animeTitle;
@@ -12,196 +18,53 @@ class AnimePage extends StatefulWidget {
 }
 
 class _AnimePageState extends State<AnimePage> {
-  double animeScore = 0;
+  Anime anime = Anime();
+
+  double animeScore = 10;
   String status;
   bool isSaveButtonDisabled = true;
 
+  final watchedEpisodes = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.animeTitle),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Center(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  animeStatus(),
-                  Divider(
-                    height: 2,
-                    color: Colors.grey,
+    return BlocBuilder<ManageFirebaseBloc, ManageState>(
+      builder: (context, state) {
+        return Scaffold(
+            appBar: AppBar(
+              title: Text(widget.animeTitle),
+              centerTitle: true,
+            ),
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Center(
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      animeStatus(),
+                      Divider(
+                        height: 2,
+                        color: Colors.grey,
+                      ),
+                      scoreAndWatched(),
+                      Divider(
+                        height: 2,
+                        color: Colors.grey,
+                      ),
+                      synopsis(),
+                      Divider(
+                        height: 2,
+                        color: Colors.grey,
+                      ),
+                      genreClassification(),
+                      buttons(),
+                    ],
                   ),
-                  scoreAndWatched(),
-                  Divider(
-                    height: 2,
-                    color: Colors.grey,
-                  ),
-                  synopsis(),
-                  Divider(
-                    height: 2,
-                    color: Colors.grey,
-                  ),
-                  genreClassification(),
-                  buttons(),
-                ],
-              ),
-            ),
-          ),
-        ));
-  }
-
-  Widget buttons() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.green),
-                onPressed: isSaveButtonDisabled
-                    ? null
-                    : () {
-                        return showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text(
-                                    "Suas alterações foram salvadas com sucesso!"),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text("OK"))
-                                ],
-                              );
-                            });
-                      },
-                child: Text("Salvar"),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  isSaveButtonDisabled = true;
-                },
-                child: Text("Voltar"),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget genreClassification() {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Informações Gerais",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                )),
-            Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Ano de lançamento: 2021")),
-            Align(alignment: Alignment.centerLeft, child: Text("Fonte:")),
-            Align(alignment: Alignment.centerLeft, child: Text("Gêneros:")),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget synopsis() {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Sinopse",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                )),
-            Align(
-                alignment: Alignment.center,
-                child: Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique eu ex in semper. Integer auctor ac diam sed porta. Sed malesuada enim eget dapibus egestas. Etiam et malesuada nisl, in ultrices nisi."))
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget scoreAndWatched() {
-    return Container(
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Episódios assistidos",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              keyboardType: TextInputType.number,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Nota",
-                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Slider(
-                  min: 0,
-                  max: 10,
-                  value: animeScore,
-                  divisions: 10,
-                  label: '$animeScore',
-                  onChanged: (double value) {
-                    isSaveButtonDisabled = false;
-                    setState(() {
-                      animeScore = value;
-                    });
-                  },
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+              ),
+            ));
+      },
     );
   }
 
@@ -266,7 +129,26 @@ class _AnimePageState extends State<AnimePage> {
                           ),
                           onChanged: (String value) {
                             setState(() {
-                              status = value;
+                              AnimeStatus watchedStatus = AnimeStatus.watched;
+                              print(watchedStatus);
+                              switch (value) {
+                                case 'Completei':
+                                  anime.status = AnimeStatus.watched;
+                                  print(AnimeStatus.watched);
+                                  break;
+                                case 'Assistindo':
+                                  anime.status = AnimeStatus.watching;
+                                  print(AnimeStatus.watching);
+                                  break;
+                                case 'Desisti':
+                                  anime.status = AnimeStatus.dropped;
+                                  print(AnimeStatus.dropped);
+                                  break;
+                                case 'Planejo assistir':
+                                  anime.status = AnimeStatus.planToWatch;
+                                  print(AnimeStatus.planToWatch);
+                                  break;
+                              }
                             });
                           },
                         ),
@@ -274,6 +156,165 @@ class _AnimePageState extends State<AnimePage> {
                     ),
                   ],
                 ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget scoreAndWatched() {
+    // double animeScore;
+    return Container(
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Episódios assistidos",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                anime.watchedEpisodes = int.parse(value);
+                print("Total: ${anime.watchedEpisodes}");
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Nota",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Slider(
+                  min: 0,
+                  max: 10,
+                  value: animeScore,
+                  divisions: 10,
+                  label: '$animeScore',
+                  onChanged: (double value) {
+                    isSaveButtonDisabled = false;
+                    setState(() {
+                      animeScore = value;
+                      anime.score = animeScore.toInt();
+                    });
+                  },
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget synopsis() {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Sinopse",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                )),
+            Align(
+                alignment: Alignment.center,
+                child: Text(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique eu ex in semper. Integer auctor ac diam sed porta. Sed malesuada enim eget dapibus egestas. Etiam et malesuada nisl, in ultrices nisi."))
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget genreClassification() {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Informações Gerais",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                )),
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Ano de lançamento: 2021")),
+            Align(alignment: Alignment.centerLeft, child: Text("Fonte:")),
+            Align(alignment: Alignment.centerLeft, child: Text("Gêneros:")),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buttons() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.green),
+                onPressed: isSaveButtonDisabled
+                    ? null
+                    : () {
+                        BlocProvider.of<ManageFirebaseBloc>(context)
+                            .add(InsertEvent(anime: anime));
+                        return showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                    "Suas alterações foram salvadas com sucesso!"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("OK"))
+                                ],
+                              );
+                            });
+                      },
+                child: Text("Salvar"),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  isSaveButtonDisabled = true;
+                },
+                child: Text("Voltar"),
               ),
             ),
           ),
