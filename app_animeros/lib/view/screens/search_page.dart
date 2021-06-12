@@ -1,5 +1,4 @@
 import 'package:app_animeros/data/jikan_api_data_provider.dart';
-import 'package:app_animeros/model/malAnime.dart';
 import 'package:flutter/material.dart';
 
 import 'anime_list/anime_page.dart';
@@ -19,7 +18,6 @@ class _SearchPageState extends State<SearchPage> {
   void search() async {
     this.query = searchController.text;
     animeList = await JikanApiDataProvider.helper.getSearchAsList(this.query);
-    print(animeList);
     setState(() {});
   }
 
@@ -125,8 +123,10 @@ class _SearchPageState extends State<SearchPage> {
                                   ),
                                 ),
                                 Text(
-                                    getCorrectFormatDate(
-                                        animeList[index].startDate),
+                                    animeList[index].startDate == null
+                                        ? "Não lançado"
+                                        : getCorrectFormatDate(
+                                            animeList[index].startDate),
                                     style: TextStyle(fontSize: 16))
                               ]),
                         )

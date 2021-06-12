@@ -16,10 +16,11 @@ class _MyHomePageState extends State<MyHomePage> {
   String seasonType;
   int seasonYear;
 
-  void setAnimeList(int seasonYear, String seasonType) async {
+  Future<Season> setAnimeList(int seasonYear, String seasonType) async {
     JikanApiDataProvider jikan = JikanApiDataProvider.helper;
     season = await jikan.getSeason(seasonYear, seasonType);
     setState(() {});
+    return season;
   }
 
   String getCorrectFormatDate(String date) {
@@ -96,7 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    setAnimeList(this.seasonYear, this.seasonType);
     return Center(
         child: Column(
       children: [
@@ -162,66 +162,74 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget generateSeasonalAnimeList() {
-    return Expanded(
-      child: ListView.builder(
-          itemCount: season.animeList.length,
-          itemBuilder: (context, index) {
-            return Container(
-              width: 300,
-              height: 200,
-              padding: EdgeInsets.all(10),
-              child: Card(
-                  shadowColor: Colors.black,
-                  elevation: 10,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AnimePage()));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: season.animeList == null
-                                ? CircularProgressIndicator()
-                                : Image.network(
+    return FutureBuilder(
+        future: setAnimeList(this.seasonYear, this.seasonType),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+          return Expanded(
+            child: ListView.builder(
+                itemCount: season.animeList.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 200,
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                        shadowColor: Colors.black,
+                        elevation: 10,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AnimePage()));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Image.network(
                                     season.animeList[index].imageUrl,
                                     height: 150,
                                   ),
-                          ),
-                        ),
-                        Flexible(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 12, bottom: 10),
-                                  child: Text(
-                                    season.animeList == null
-                                        ? "Carregando"
-                                        : season.animeList[index].title,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
                                 ),
-                                Text(
-                                    season.animeList == null
-                                        ? "Carregando"
-                                        : getCorrectFormatDate(season
-                                            .animeList[index].airingStart),
-                                    style: TextStyle(fontSize: 16))
-                              ]),
-                        )
-                      ],
-                    ),
-                  )),
-            );
-          }),
-    );
+                              ),
+                              Flexible(
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 12, bottom: 10),
+                                        child: Text(
+                                          season.animeList[index].title,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Text(
+                                          season.animeList[index].airingStart ==
+                                                  null
+                                              ? "Não lançado"
+                                              : getCorrectFormatDate(season
+                                                  .animeList[index]
+                                                  .airingStart),
+                                          style: TextStyle(fontSize: 16))
+                                    ]),
+                              )
+                            ],
+                          ),
+                        )),
+                  );
+                }),
+          );
+        });
   }
 }
