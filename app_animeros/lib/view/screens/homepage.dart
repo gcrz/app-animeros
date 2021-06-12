@@ -175,8 +175,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   elevation: 10,
                   child: InkWell(
                     onTap: () {
+                      // season.animeList[index].title;
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AnimePage()));
+                          MaterialPageRoute(builder: (context) => AnimePage(animeTitle:season.animeList[index].title.toString(), animeUrlImage: season.animeList[index].imageUrl.toString(),)));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,

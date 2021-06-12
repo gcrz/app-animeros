@@ -1,6 +1,8 @@
 //Eventos da camada da view
 // 1 - Adicionar um anime a lista do usuário (INSERT)
 // 2 - Alterar um anime na lista do usuário (UPDATE)
+import 'package:app_animeros/model/anime.dart';
+
 abstract class ManageEvent {}
 
 class InsertEvent extends ManageEvent {

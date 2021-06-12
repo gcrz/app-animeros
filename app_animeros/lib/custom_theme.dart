@@ -29,6 +29,13 @@ class Styles {
       appBarTheme: AppBarTheme(
         elevation: 0.0,
       ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: isDarkTheme ? Colors.white : Colors.black,
+        selectedIconTheme: isDarkTheme
+            ? IconThemeData(color: Color.fromRGBO(255, 255, 255, 1))
+            : IconThemeData(color: Color.fromRGBO(0, 0, 0, 1)),
+        selectedLabelStyle: isDarkTheme ? TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) : TextStyle(color: Color.fromRGBO(0, 0, 255, 1))
+      ),
     );
   }
 }

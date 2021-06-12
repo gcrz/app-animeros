@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AnimePage extends StatefulWidget {
+  final String animeTitle;
+  final String animeUrlImage;
+
+  AnimePage({Key key, @required this.animeTitle, @required this.animeUrlImage})
+      : super(key: key);
+
   @override
   _AnimePageState createState() => _AnimePageState();
 }
@@ -14,7 +20,7 @@ class _AnimePageState extends State<AnimePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("nome do anime"),
+          title: Text(widget.animeTitle),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -206,69 +212,68 @@ class _AnimePageState extends State<AnimePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.network(
-            "https://gblobscdn.gitbook.com/spaces%2F-LanYWbVFl837-fblbH8%2Favatar.png?alt=media",
+            widget.animeUrlImage,
             width: 200,
             height: 200,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 0),
-            child: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "nome do anime",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "nome do studio",
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Status"),
-                      DropdownButton<String>(
-                        onTap: () {
-                          isSaveButtonDisabled = false;
-                        },
-                        focusColor: Colors.white,
-                        value: status,
-                        elevation: 5,
-                        style: TextStyle(color: Colors.white),
-                        iconEnabledColor: Colors.black,
-                        items: <String>[
-                          'Completei',
-                          'Assistindo',
-                          'Desisti',
-                          'Planejo assistir',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          );
-                        }).toList(),
-                        hint: Text(
-                          "Escolha uma opção",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 0),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      widget.animeTitle,
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.fade,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Status"),
+                        DropdownButton<String>(
+                          onTap: () {
+                            isSaveButtonDisabled = false;
+                          },
+                          focusColor: Colors.white,
+                          value: status,
+                          elevation: 5,
+                          style: TextStyle(color: Colors.white),
+                          iconEnabledColor: Colors.black,
+                          items: <String>[
+                            'Completei',
+                            'Assistindo',
+                            'Desisti',
+                            'Planejo assistir',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
+                          hint: Text(
+                            "Escolha uma opção",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          onChanged: (String value) {
+                            setState(() {
+                              status = value;
+                            });
+                          },
                         ),
-                        onChanged: (String value) {
-                          setState(() {
-                            status = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

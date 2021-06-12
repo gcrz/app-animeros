@@ -1,3 +1,5 @@
+import 'package:app_animeros/model/anime.dart';
+
 abstract class ManageState {}
 
 class UpdateState extends ManageState {

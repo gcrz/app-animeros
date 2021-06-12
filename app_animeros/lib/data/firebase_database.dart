@@ -1,3 +1,4 @@
+import 'package:app_animeros/model/anime.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseRemoteServer {
@@ -14,10 +15,9 @@ class FirebaseRemoteServer {
     List<String> idList = [];
 
      for (var doc in snapshot.docs) {
-      Anime anime = Anime.fromMap(doc.data());
-      anime.dataLocation = 0;
-      animeList.add(anime);
-      idList.add(doc.id);
+      // Anime anime = Anime.fromMap(doc.data());
+      // animeList.add(anime);
+      // idList.add(doc.id);
     }
     return [animeList, idList];
   }

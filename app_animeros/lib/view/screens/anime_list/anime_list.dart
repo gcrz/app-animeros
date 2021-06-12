@@ -57,7 +57,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Todos",
-                  style: TextStyle(color: Colors.black),
                 )),
           ),
           Padding(
@@ -71,7 +70,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Completo",
-                  style: TextStyle(color: Colors.black),
                 )),
           ),
           Padding(
@@ -85,7 +83,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Assistindo",
-                  style: TextStyle(color: Colors.black),
                 )),
           ),
           Padding(
@@ -99,7 +96,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Desisti",
-                  style: TextStyle(color: Colors.black),
                 )),
           ),
           Padding(
@@ -113,7 +109,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Planejo assistir",
-                  style: TextStyle(color: Colors.black),
                 )),
           )
         ],
@@ -152,8 +147,8 @@ class UserAnimeList extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AnimePage()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => AnimePage()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -163,10 +158,10 @@ class UserAnimeList extends StatelessWidget {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AnimePage()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => AnimePage()));
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
