@@ -176,8 +176,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: InkWell(
                     onTap: () {
                       // season.animeList[index].title;
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AnimePage(animeMalId: season.animeList[index].malId,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AnimePage(
+                                    animeMalId: season.animeList[index].malId,
+                                    animeDate: getCorrectFormatDate(
+                                        season.animeList[index].airingStart),
+                                  )));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -216,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         : getCorrectFormatDate(season
                                             .animeList[index].airingStart),
                                     style: TextStyle(fontSize: 16)),
-                                    // TESTE
+                                // TESTE
                                 // Text(season.animeList == null
                                 //         ? "Carregando"
                                 //         : season
