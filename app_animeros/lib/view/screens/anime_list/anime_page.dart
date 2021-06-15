@@ -196,18 +196,22 @@ class _AnimePageState extends State<AnimePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Container(
-                    width: 30,
+                    width: 45,
                     child: TextFormField(
+                      textAlign: TextAlign.center,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: '0'),
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
+                        if (int.parse(value) > malAnime.episodes) {
+                          value = malAnime.episodes.toString();
+                        }
                         anime.watchedEpisodes = int.parse(value);
                       },
                     ),
                   ),
                 ),
-                Text('/${malAnime.episodes}')
+                Text('/ ${malAnime.episodes}')
               ],
             ),
           ),
