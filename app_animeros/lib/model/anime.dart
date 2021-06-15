@@ -1,8 +1,7 @@
-import 'package:app_animeros/constants/enums.dart';
-
 class Anime {
   int id;
-  AnimeStatus status;
+  String
+      status; // em português: Completei, Assistindo, Parei de assistir, Planejo assistir
   int watchedEpisodes;
   int score;
   var malId; // não sabemos se esse ID é um int ou String

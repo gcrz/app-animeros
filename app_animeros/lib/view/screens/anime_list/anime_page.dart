@@ -1,3 +1,4 @@
+import 'package:app_animeros/constants/constants.dart';
 import 'package:app_animeros/constants/enums.dart';
 import 'package:app_animeros/data/jikan_api_data_provider.dart';
 import 'package:app_animeros/logic/manage_db/manage_db_event.dart';
@@ -12,8 +13,10 @@ class AnimePage extends StatefulWidget {
   // final String animeTitle;
   // final String animeUrlImage;
   final int animeMalId;
+  String animeDate;
 
-  AnimePage({Key key, @required this.animeMalId}) : super(key: key);
+  AnimePage({Key key, @required this.animeMalId, this.animeDate})
+      : super(key: key);
 
   @override
   _AnimePageState createState() => _AnimePageState();
@@ -33,6 +36,14 @@ class _AnimePageState extends State<AnimePage> {
     malAnime = await jikan.getAnime(malId);
     setState(() {});
     return malAnime;
+  }
+
+  String formatGenresString(List<dynamic> genres) {
+    String returnGenres = '| ';
+    genres.forEach((element) {
+      returnGenres += GENRES[element['mal_id']] + " | ";
+    });
+    return returnGenres;
   }
 
   @override
@@ -70,7 +81,6 @@ class _AnimePageState extends State<AnimePage> {
                             height: 2,
                             color: Colors.grey,
                           ),
-                          synopsis(),
                           Divider(
                             height: 2,
                             color: Colors.grey,
@@ -150,26 +160,7 @@ class _AnimePageState extends State<AnimePage> {
                           onChanged: (String value) {
                             setState(() {
                               status = value;
-                              AnimeStatus watchedStatus = AnimeStatus.watched;
-                              print(watchedStatus);
-                              switch (value) {
-                                case 'Completei':
-                                  anime.status = AnimeStatus.watched;
-                                  print(AnimeStatus.watched);
-                                  break;
-                                case 'Assistindo':
-                                  anime.status = AnimeStatus.watching;
-                                  print(AnimeStatus.watching);
-                                  break;
-                                case 'Desisti':
-                                  anime.status = AnimeStatus.dropped;
-                                  print(AnimeStatus.dropped);
-                                  break;
-                                case 'Planejo assistir':
-                                  anime.status = AnimeStatus.planToWatch;
-                                  print(AnimeStatus.planToWatch);
-                                  break;
-                              }
+                              anime.status = value;
                             });
                           },
                         ),
@@ -194,21 +185,30 @@ class _AnimePageState extends State<AnimePage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Episódios assistidos",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
-                anime.watchedEpisodes = int.parse(value);
-                print("Total: ${anime.watchedEpisodes}");
-              },
+            child: Row(
+              children: [
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Episódios assistidos: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Container(
+                    width: 30,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: '0'),
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        anime.watchedEpisodes = int.parse(value);
+                      },
+                    ),
+                  ),
+                ),
+                Text('/${malAnime.episodes}')
+              ],
             ),
           ),
           Padding(
@@ -243,29 +243,6 @@ class _AnimePageState extends State<AnimePage> {
     );
   }
 
-  Widget synopsis() {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Sinopse",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                )),
-            Align(
-                alignment: Alignment.center,
-                child: Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique eu ex in semper. Integer auctor ac diam sed porta. Sed malesuada enim eget dapibus egestas. Etiam et malesuada nisl, in ultrices nisi."))
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget genreClassification() {
     return Container(
       child: Padding(
@@ -281,9 +258,11 @@ class _AnimePageState extends State<AnimePage> {
                 )),
             Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Ano de lançamento: 2021")),
-            Align(alignment: Alignment.centerLeft, child: Text("Fonte:")),
-            Align(alignment: Alignment.centerLeft, child: Text("Gêneros:")),
+                child: Text("Ano de lançamento: ${widget.animeDate}")),
+            // Align(alignment: Alignment.centerLeft, child: Text("Fonte: ${}")),
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Gêneros: ${formatGenresString(malAnime.genres)}")),
           ],
         ),
       ),
