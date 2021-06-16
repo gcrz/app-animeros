@@ -33,7 +33,10 @@ class FirebaseRemoteServer {
       "malId": anime.malId,
       "status": anime.status,
       "watchedEpisodes": anime.watchedEpisodes,
-      "score": anime.score
+      "score": anime.score,
+      "imageUrl": anime.imageUrl,
+      "title": anime.title,
+      "date": anime.date
     });
   }
 
@@ -42,7 +45,10 @@ class FirebaseRemoteServer {
       "malId": anime.malId,
       "status": anime.status,
       "watchedEpisodes": anime.watchedEpisodes,
-      "score": anime.score
+      "score": anime.score,
+      "imageUrl": anime.imageUrl,
+      "title": anime.title,
+      "date": anime.date
     });
   }
 

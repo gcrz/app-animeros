@@ -123,27 +123,13 @@ class UserAnimeList extends StatelessWidget {
     );
   }
 
-  // TableRow teste(String imageURL, String score, String watchedEpisodes) {
-  //   return TableRow(
-  //       decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(10),
-  //           border: Border.all(color: Colors.black, width: 1.0)),
-  //       children: [
-  //         Center(
-  //             child: Padding(
-  //                 padding: EdgeInsets.all(10),
-  //                 child: Image.network(
-  //                   imageURL,
-  //                   width: 10,
-  //                   height: 10,
-  //                 ))),
-  //         Center(
-  //             child: Padding(padding: EdgeInsets.all(10), child: Text(score))),
-  //         Center(
-  //             child: Padding(
-  //                 padding: EdgeInsets.all(10), child: Text(watchedEpisodes)))
-  //       ]);
-  // }
+  String getCorrectFormatDate(String date) {
+    String _date = date.split("T")[0];
+    List<String> dayMonthYear = _date.split("-");
+    String correctDate =
+        "${dayMonthYear[2]}/${dayMonthYear[1]}/${dayMonthYear[0]}";
+    return correctDate;
+  }
 
   Widget tableTitleAnime(animeList) {
     // print(animeList[0]);
@@ -167,18 +153,22 @@ class UserAnimeList extends StatelessWidget {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => AnimePage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AnimePage(
+                                          animeMalId: animeList[index].malId,
+                                          animeDate: animeList[index].date,
+                                        )));
                           },
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
+                            padding: const EdgeInsets.fromLTRB(6, 12, 2, 6),
                             child: Image.network(
-                              currentAnimeList[index],
-                              width: 50,
-                              height: 50,
-                              semanticLabel: "Imagem de $animeTitles[index]",
+                              animeList[index].imageUrl,
+                              width: 110,
+                              height: 150,
+                              semanticLabel:
+                                  "Imagem de ${animeList[index].title}",
                             ),
                           ),
                         ),
@@ -193,12 +183,13 @@ class UserAnimeList extends StatelessWidget {
                           Container(
                             width: 200,
                             child: Text(
-                              animeTitles[index],
+                              animeList[index].title,
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          Text("Episódios assistidos: ${animeList[index].watchedEpisodes.toString()}"),
+                          Text(
+                              "Episódios assistidos: ${animeList[index].watchedEpisodes.toString()}"),
                           Text("Nota: ${animeList[index].score.toString()}")
                         ],
                       ),

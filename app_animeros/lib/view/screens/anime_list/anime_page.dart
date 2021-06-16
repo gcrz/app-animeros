@@ -48,15 +48,14 @@ class _AnimePageState extends State<AnimePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.animeMalId);
     return BlocBuilder<ManageFirebaseBloc, ManageState>(
       builder: (context, state) {
         return FutureBuilder(
           future: getAnimeByMalId(widget.animeMalId),
           builder: (context, snapshot) {
-            // if (snapshot.connectionState == ConnectionState.waiting) {
-            //   return CircularProgressIndicator();
-            // }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            }
             return Scaffold(
                 appBar: AppBar(
                   title: Text(
@@ -288,6 +287,9 @@ class _AnimePageState extends State<AnimePage> {
                     ? null
                     : () {
                         anime.malId = widget.animeMalId;
+                        anime.title = malAnime.title;
+                        anime.imageUrl = malAnime.imageUrl;
+                        anime.date = malAnime.airingStart;
                         BlocProvider.of<ManageFirebaseBloc>(context)
                             .add(InsertEvent(anime: anime));
                         return showDialog(
