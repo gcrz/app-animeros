@@ -12,10 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AnimePage extends StatefulWidget {
   // final String animeTitle;
   // final String animeUrlImage;
-  final int animeMalId;
+  final MalAnime malAnime;
   String animeDate;
 
-  AnimePage({Key key, @required this.animeMalId, this.animeDate})
+  AnimePage({Key key, @required this.malAnime, this.animeDate})
       : super(key: key);
 
   @override
@@ -24,19 +24,11 @@ class AnimePage extends StatefulWidget {
 
 class _AnimePageState extends State<AnimePage> {
   Anime anime = Anime();
-  MalAnime malAnime = MalAnime();
   double animeScore = 0;
   String status;
   bool isSaveButtonDisabled = true;
 
   final watchedEpisodes = TextEditingController();
-
-  Future<MalAnime> getAnimeByMalId(int malId) async {
-    JikanApiDataProvider jikan = JikanApiDataProvider.helper;
-    malAnime = await jikan.getAnime(malId);
-    setState(() {});
-    return malAnime;
-  }
 
   String formatGenresString(List<dynamic> genres) {
     String returnGenres = '| ';
@@ -50,49 +42,41 @@ class _AnimePageState extends State<AnimePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<ManageFirebaseBloc, ManageState>(
       builder: (context, state) {
-        return FutureBuilder(
-          future: getAnimeByMalId(widget.animeMalId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            }
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text(
-                    malAnime.title,
-                  ),
-                  centerTitle: true,
-                ),
-                body: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Center(
-                    child: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          animeStatus(),
-                          Divider(
-                            height: 2,
-                            color: Colors.grey,
-                          ),
-                          scoreAndWatched(),
-                          Divider(
-                            height: 2,
-                            color: Colors.grey,
-                          ),
-                          Divider(
-                            height: 2,
-                            color: Colors.grey,
-                          ),
-                          genreClassification(),
-                          buttons(),
-                        ],
+        return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                widget.malAnime.title,
+              ),
+              centerTitle: true,
+            ),
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Center(
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      animeStatus(),
+                      Divider(
+                        height: 2,
+                        color: Colors.grey,
                       ),
-                    ),
+                      scoreAndWatched(),
+                      Divider(
+                        height: 2,
+                        color: Colors.grey,
+                      ),
+                      Divider(
+                        height: 2,
+                        color: Colors.grey,
+                      ),
+                      genreClassification(),
+                      buttons(),
+                    ],
                   ),
-                ));
-          },
-        );
+                ),
+              ),
+            ));
       },
     );
   }
@@ -104,7 +88,7 @@ class _AnimePageState extends State<AnimePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.network(
-            malAnime.imageUrl,
+            widget.malAnime.imageUrl,
             width: 200,
             height: 200,
           ),
@@ -116,7 +100,7 @@ class _AnimePageState extends State<AnimePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      malAnime.title,
+                      widget.malAnime.title,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       overflow: TextOverflow.fade,
@@ -202,15 +186,15 @@ class _AnimePageState extends State<AnimePage> {
                           border: InputBorder.none, hintText: '0'),
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
-                        if (int.parse(value) > malAnime.episodes) {
-                          value = malAnime.episodes.toString();
+                        if (int.parse(value) > widget.malAnime.episodes) {
+                          value = widget.malAnime.episodes.toString();
                         }
                         anime.watchedEpisodes = int.parse(value);
                       },
                     ),
                   ),
                 ),
-                Text('/ ${malAnime.episodes}')
+                Text('/ ${widget.malAnime.episodes}')
               ],
             ),
           ),
@@ -265,7 +249,8 @@ class _AnimePageState extends State<AnimePage> {
             // Align(alignment: Alignment.centerLeft, child: Text("Fonte: ${}")),
             Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Gêneros: ${formatGenresString(malAnime.genres)}")),
+                child: Text(
+                    "Gêneros: ${formatGenresString(widget.malAnime.genres)}")),
           ],
         ),
       ),
@@ -286,10 +271,10 @@ class _AnimePageState extends State<AnimePage> {
                 onPressed: isSaveButtonDisabled
                     ? null
                     : () {
-                        anime.malId = widget.animeMalId;
-                        anime.title = malAnime.title;
-                        anime.imageUrl = malAnime.imageUrl;
-                        anime.date = malAnime.airingStart;
+                        anime.malId = widget.malAnime;
+                        anime.title = widget.malAnime.title;
+                        anime.imageUrl = widget.malAnime.imageUrl;
+                        anime.date = widget.malAnime.airingStart;
                         BlocProvider.of<ManageFirebaseBloc>(context)
                             .add(InsertEvent(anime: anime));
                         return showDialog(

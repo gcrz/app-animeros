@@ -1,5 +1,7 @@
+import 'package:app_animeros/data/jikan_api_data_provider.dart';
 import 'package:app_animeros/logic/monitor_db/monitor_db_bloc.dart';
 import 'package:app_animeros/logic/monitor_db/monitor_db_state.dart';
+import 'package:app_animeros/model/malAnime.dart';
 import 'package:app_animeros/view/screens/anime_list/anime_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -131,6 +133,11 @@ class UserAnimeList extends StatelessWidget {
     return correctDate;
   }
 
+  Future<MalAnime> getAnimeById(int malAnimeId) async {
+    MalAnime anime = await JikanApiDataProvider.helper.getAnime(malAnimeId);
+    return anime;
+  }
+
   Widget tableTitleAnime(animeList) {
     // print(animeList[0]);
     return Expanded(
@@ -152,12 +159,14 @@ class UserAnimeList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            MalAnime anime =
+                                await getAnimeById(animeList[index].malId);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => AnimePage(
-                                          animeMalId: animeList[index].malId,
+                                          malAnime: anime,
                                           animeDate: animeList[index].date,
                                         )));
                           },

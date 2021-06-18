@@ -16,10 +16,10 @@ class _MyHomePageState extends State<MyHomePage> {
   String seasonType;
   int seasonYear;
 
-  void setAnimeList(int seasonYear, String seasonType) async {
+  Future setAnimeList(int seasonYear, String seasonType) async {
     JikanApiDataProvider jikan = JikanApiDataProvider.helper;
     season = await jikan.getSeason(seasonYear, seasonType);
-    setState(() {});
+    return season;
   }
 
   String getCorrectFormatDate(String date) {
@@ -96,42 +96,50 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    setAnimeList(this.seasonYear, this.seasonType);
-    return Center(
-        child: Column(
-      children: [
-        Center(
-          child: Row(
+    return FutureBuilder(
+        future: setAnimeList(seasonYear, seasonType),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return Center(
+              child: Column(
             children: [
-              Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 20,
+              Center(
+                child: Row(
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 20,
+                          ),
+                          child: generateBackSeasonButton(),
+                        )),
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                        child: Center(child: generateTitle()),
+                      ),
                     ),
-                    child: generateBackSeasonButton(),
-                  )),
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-                  child: Center(child: generateTitle()),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                        child: generateNextSeasonButton(),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-                  child: generateNextSeasonButton(),
-                ),
-              )
+              generateSeasonalAnimeList(),
             ],
-          ),
-        ),
-        generateSeasonalAnimeList(),
-      ],
-    ));
+          ));
+        });
   }
 
   Widget generateTitle() {
@@ -180,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => AnimePage(
-                                    animeMalId: season.animeList[index].malId,
+                                    malAnime: season.animeList[index],
                                     animeDate: getCorrectFormatDate(
                                         season.animeList[index].airingStart),
                                   )));
