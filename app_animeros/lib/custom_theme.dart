@@ -15,6 +15,9 @@ class Styles {
       hoverColor: isDarkTheme ? Color(0xff3A3A3B) : Color(0xff4285F4),
       focusColor: isDarkTheme ? Color(0xff0B2512) : Color(0xffA8DAB5),
       disabledColor: Colors.grey,
+      inputDecorationTheme: isDarkTheme
+          ? InputDecorationTheme(hintStyle: TextStyle(color: Colors.white))
+          : InputDecorationTheme(hintStyle: TextStyle(color: Colors.black)),
       textSelectionTheme: TextSelectionThemeData(
           selectionColor: isDarkTheme ? Colors.white : Colors.black),
       textTheme: TextTheme(
@@ -29,6 +32,14 @@ class Styles {
       appBarTheme: AppBarTheme(
         elevation: 0.0,
       ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: isDarkTheme ? Colors.white : Colors.black,
+          selectedIconTheme: isDarkTheme
+              ? IconThemeData(color: Color.fromRGBO(255, 255, 255, 1))
+              : IconThemeData(color: Color.fromRGBO(0, 0, 0, 1)),
+          selectedLabelStyle: isDarkTheme
+              ? TextStyle(color: Color.fromRGBO(255, 255, 255, 1))
+              : TextStyle(color: Color.fromRGBO(0, 0, 255, 1))),
     );
   }
 }

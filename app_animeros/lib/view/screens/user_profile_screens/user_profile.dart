@@ -2,6 +2,7 @@ import 'package:app_animeros/logic/manage_auth/auth_bloc.dart';
 import 'package:app_animeros/logic/manage_auth/auth_event.dart';
 import 'package:app_animeros/view/screens/user_profile_screens/user_config.dart';
 import 'package:app_animeros/view/screens/register_login_screens/user_login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +12,8 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  
+  
   BuildContext _context;
   @override
   Widget build(BuildContext context) {
@@ -135,8 +138,8 @@ class _UserProfileState extends State<UserProfile> {
     return ElevatedButton(
         onPressed: () {
           BlocProvider.of<AuthBloc>(context).add(Logout());
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => UserLogin()));
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => UserLogin()));
         },
         child: Text("Logout"));
   }

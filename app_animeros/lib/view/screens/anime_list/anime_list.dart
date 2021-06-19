@@ -1,5 +1,10 @@
+import 'package:app_animeros/data/jikan_api_data_provider.dart';
+import 'package:app_animeros/logic/monitor_db/monitor_db_bloc.dart';
+import 'package:app_animeros/logic/monitor_db/monitor_db_state.dart';
+import 'package:app_animeros/model/malAnime.dart';
 import 'package:app_animeros/view/screens/anime_list/anime_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserAnimeList extends StatelessWidget {
   final animeTitles = [
@@ -20,22 +25,26 @@ class UserAnimeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Sua lista de animes",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                )),
+    return BlocBuilder<MonitorBloc, MonitorState>(
+      builder: (context, state) {
+        return Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Sua lista de animes",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    )),
+              ),
+              horizontalClassView(),
+              tableTitleAnime(state.animeList),
+            ],
           ),
-          horizontalClassView(),
-          tableTitleAnime(),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -57,7 +66,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Todos",
-                  style: TextStyle(color: Colors.black),
                 )),
           ),
           Padding(
@@ -71,7 +79,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Completo",
-                  style: TextStyle(color: Colors.black),
                 )),
           ),
           Padding(
@@ -85,7 +92,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Assistindo",
-                  style: TextStyle(color: Colors.black),
                 )),
           ),
           Padding(
@@ -99,7 +105,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Desisti",
-                  style: TextStyle(color: Colors.black),
                 )),
           ),
           Padding(
@@ -113,7 +118,6 @@ class UserAnimeList extends StatelessWidget {
                     },
                 child: Text(
                   "Planejo assistir",
-                  style: TextStyle(color: Colors.black),
                 )),
           )
         ],
@@ -121,39 +125,32 @@ class UserAnimeList extends StatelessWidget {
     );
   }
 
-  // TableRow teste(String imageURL, String score, String watchedEpisodes) {
-  //   return TableRow(
-  //       decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(10),
-  //           border: Border.all(color: Colors.black, width: 1.0)),
-  //       children: [
-  //         Center(
-  //             child: Padding(
-  //                 padding: EdgeInsets.all(10),
-  //                 child: Image.network(
-  //                   imageURL,
-  //                   width: 10,
-  //                   height: 10,
-  //                 ))),
-  //         Center(
-  //             child: Padding(padding: EdgeInsets.all(10), child: Text(score))),
-  //         Center(
-  //             child: Padding(
-  //                 padding: EdgeInsets.all(10), child: Text(watchedEpisodes)))
-  //       ]);
-  // }
+  String getCorrectFormatDate(String date) {
+    String _date = date.split("T")[0];
+    List<String> dayMonthYear = _date.split("-");
+    String correctDate =
+        "${dayMonthYear[2]}/${dayMonthYear[1]}/${dayMonthYear[0]}";
+    return correctDate;
+  }
 
-  Widget tableTitleAnime() {
+  Future<MalAnime> getAnimeById(int malAnimeId) async {
+    MalAnime anime = await JikanApiDataProvider.helper.getAnime(malAnimeId);
+    return anime;
+  }
+
+  Widget tableTitleAnime(animeList) {
+    // print(animeList[0]);
     return Expanded(
       child: ListView.builder(
-        itemCount: animeTitles.length,
+        // itemCount: animeTitles.length,
+        itemCount: animeList.length,
         itemBuilder: (context, index) {
           return Column(
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AnimePage()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => AnimePage()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -162,19 +159,25 @@ class UserAnimeList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            MalAnime anime =
+                                await getAnimeById(animeList[index].malId);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AnimePage()));
+                                    builder: (context) => AnimePage(
+                                          malAnime: anime,
+                                          animeDate: animeList[index].date,
+                                        )));
                           },
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
+                            padding: const EdgeInsets.fromLTRB(6, 12, 2, 6),
                             child: Image.network(
-                              currentAnimeList[index],
-                              width: 50,
-                              height: 50,
-                              semanticLabel: "Imagem de $animeTitles[index]",
+                              animeList[index].imageUrl,
+                              width: 110,
+                              height: 150,
+                              semanticLabel:
+                                  "Imagem de ${animeList[index].title}",
                             ),
                           ),
                         ),
@@ -182,9 +185,6 @@ class UserAnimeList extends StatelessWidget {
                     ),
                     Container(
                       height: 150,
-                      // decoration: BoxDecoration(
-                      //   border: Border.all(color: Colors.black),
-                      // ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,13 +192,14 @@ class UserAnimeList extends StatelessWidget {
                           Container(
                             width: 200,
                             child: Text(
-                              animeTitles[index],
+                              animeList[index].title,
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          Text("Nota"),
-                          Text("Episódios Assistidos")
+                          Text(
+                              "Episódios assistidos: ${animeList[index].watchedEpisodes.toString()}"),
+                          Text("Nota: ${animeList[index].score.toString()}")
                         ],
                       ),
                     )
