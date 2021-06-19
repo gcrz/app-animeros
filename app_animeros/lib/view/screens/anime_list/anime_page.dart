@@ -271,7 +271,7 @@ class _AnimePageState extends State<AnimePage> {
                 onPressed: isSaveButtonDisabled
                     ? null
                     : () {
-                        anime.malId = widget.malAnime;
+                        anime.malId = widget.malAnime.malId;
                         anime.title = widget.malAnime.title;
                         anime.imageUrl = widget.malAnime.imageUrl;
                         anime.date = widget.malAnime.airingStart;
