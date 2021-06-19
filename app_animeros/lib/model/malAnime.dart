@@ -6,7 +6,6 @@ class MalAnime {
   String imageUrl;
   String type; // tv, ova, movie, special, ona, music
   String airingStart;
-  String startDate;
   int episodes;
   List<dynamic> genres;
 
@@ -16,7 +15,6 @@ class MalAnime {
       this.imageUrl,
       this.type,
       this.airingStart,
-      this.startDate,
       this.episodes,
       this.genres});
 
@@ -26,7 +24,6 @@ class MalAnime {
     this.imageUrl = map["image_url"];
     this.type = map["type"];
     this.airingStart = map["airing_start"];
-    this.startDate = map['start_date'];
     this.episodes = map["episodes"];
     this.genres = map["genres"];
   }
@@ -38,7 +35,6 @@ class MalAnime {
     malAnimeMap['image_url'] = imageUrl;
     malAnimeMap['type'] = type;
     malAnimeMap['airing_start'] = airingStart;
-    malAnimeMap['start_date'] = startDate;
     malAnimeMap['episodes'] = episodes;
     malAnimeMap['genres'] = genres;
     return malAnimeMap;
