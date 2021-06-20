@@ -184,7 +184,7 @@ class UserAnimeList extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      height: 150,
+                      height: 180,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,6 +197,7 @@ class UserAnimeList extends StatelessWidget {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
+                          Text("Status: ${animeList[index].status.toString()}"),
                           Text(
                               "Episódios assistidos: ${animeList[index].watchedEpisodes.toString()}"),
                           Text("Nota: ${animeList[index].score.toString()}")
