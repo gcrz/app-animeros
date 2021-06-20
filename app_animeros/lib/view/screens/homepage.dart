@@ -206,6 +206,23 @@ class _MyHomePageState extends State<MyHomePage> {
                                     season.animeList[index].imageUrl,
                                     height: 150,
                                   ),
+                          ),
+                        ),
+                        Flexible(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 12, bottom: 10),
+                                  child: Text(
+                                    season.animeList == null
+                                        ? "Carregando"
+                                        : season.animeList[index].title,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                                 Text(
                                     season.animeList == null

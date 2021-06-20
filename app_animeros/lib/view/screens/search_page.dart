@@ -1,4 +1,5 @@
 import 'package:app_animeros/data/jikan_api_data_provider.dart';
+import 'package:app_animeros/model/malAnime.dart';
 import 'package:flutter/material.dart';
 
 import 'anime_list/anime_page.dart';
@@ -27,6 +28,11 @@ class _SearchPageState extends State<SearchPage> {
     String correctDate =
         "${dayMonthYear[2]}/${dayMonthYear[1]}/${dayMonthYear[0]}";
     return correctDate;
+  }
+
+  Future<MalAnime> getAnimeById(int malAnimeId) async {
+    MalAnime anime = await JikanApiDataProvider.helper.getAnime(malAnimeId);
+    return anime;
   }
 
   @override
@@ -90,9 +96,16 @@ class _SearchPageState extends State<SearchPage> {
                   shadowColor: Colors.black,
                   elevation: 10,
                   child: InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AnimePage()));
+                    onTap: () async{
+                      MalAnime anime = await getAnimeById(animeList[index].malId);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AnimePage(
+                                    malAnime: anime,
+                                    animeDate: getCorrectFormatDate(
+                                        animeList[index].startDate),
+                                  )));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
