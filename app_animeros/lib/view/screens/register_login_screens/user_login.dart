@@ -52,7 +52,7 @@ class _UserLoginState extends State<UserLogin> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (String inValue) {
                           if (inValue.length == 0) {
-                            return "Please enter username";
+                            return "Por favor, digite seu nome de usuário";
                           }
                           return null;
                         },
@@ -74,7 +74,7 @@ class _UserLoginState extends State<UserLogin> {
                         obscureText: true,
                         validator: (String inValue) {
                           if (inValue.length < 3) {
-                            return "Password must be >=3 in lenght";
+                            return "Senha deve ter 3 caracteres ou mais";
                           }
                           return null;
                         },

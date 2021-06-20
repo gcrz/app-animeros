@@ -82,7 +82,7 @@ class _UserRegisterState extends State<UserRegister> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (String inValue) {
                           if (inValue.length == 0) {
-                            return "Please enter username";
+                            return "Por favor, digite o e-mail";
                           }
                           return null;
                         },
@@ -116,13 +116,13 @@ class _UserRegisterState extends State<UserRegister> {
                           border: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.black)),
                           hintText: "Senha",
-                          helperText: "Mínimo de 10 e máximo de 30 caracteres",
+                          helperText: "Mínimo de 3 e máximo de 30 caracteres",
                           suffixIcon: Icon(Icons.lock),
                         ),
                         obscureText: true,
                         validator: (String inValue) {
                           if (inValue.length < 3) {
-                            return "Password must be >=3 in lenght";
+                            return "Senha deve ter 3 ou mais caracteres";
                           }
                           return null;
                         },
