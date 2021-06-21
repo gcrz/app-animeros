@@ -96,8 +96,9 @@ class _SearchPageState extends State<SearchPage> {
                   shadowColor: Colors.black,
                   elevation: 10,
                   child: InkWell(
-                    onTap: () async{
-                      MalAnime anime = await getAnimeById(animeList[index].malId);
+                    onTap: () async {
+                      MalAnime anime =
+                          await getAnimeById(animeList[index].malId);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -138,8 +139,7 @@ class _SearchPageState extends State<SearchPage> {
                                 Text(
                                     animeList[index].startDate == null
                                         ? "Não lançado"
-                                        : getCorrectFormatDate(
-                                            animeList[index].startDate),
+                                        : "Data de lançamento: ${getCorrectFormatDate(animeList[index].startDate)}",
                                     style: TextStyle(fontSize: 16))
                               ]),
                         )
