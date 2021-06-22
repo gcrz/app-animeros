@@ -194,7 +194,9 @@ class _AnimePageState extends State<AnimePage> {
                     ),
                   ),
                 ),
-                Text('/ ${widget.malAnime.episodes}')
+                Text(widget.malAnime.episodes == null
+                    ? '/?'
+                    : '/ ${widget.malAnime.episodes}')
               ],
             ),
           ),
@@ -275,6 +277,15 @@ class _AnimePageState extends State<AnimePage> {
                         anime.title = widget.malAnime.title;
                         anime.imageUrl = widget.malAnime.imageUrl;
                         anime.date = widget.malAnime.airingStart;
+                        if (anime.status == null) {
+                          anime.status = 'Planejo assistir';
+                        }
+                        if (anime.watchedEpisodes == null) {
+                          anime.watchedEpisodes = 0;
+                        }
+                        if (anime.score == null) {
+                          anime.score = 1;
+                        }
                         BlocProvider.of<ManageFirebaseBloc>(context)
                             .add(InsertEvent(anime: anime));
                         return showDialog(

@@ -39,7 +39,7 @@ class UserAnimeList extends StatelessWidget {
                       fontSize: 30,
                     )),
               ),
-              horizontalClassView(),
+              // horizontalClassView(),
               tableTitleAnime(state.animeList),
             ],
           ),
@@ -167,7 +167,8 @@ class UserAnimeList extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => AnimePage(
                                           malAnime: anime,
-                                          animeDate: getCorrectFormatDate(animeList[index].date),
+                                          animeDate: getCorrectFormatDate(
+                                              animeList[index].date),
                                         )));
                           },
                           child: Padding(

@@ -129,7 +129,7 @@ class UserStatistics extends StatelessWidget {
   }
 
   Widget generateMeanScoreCard(animeList) {
-    String meanScore = calculateMeanScore(animeList).toString();
+    String meanScore = (calculateMeanScore(animeList)).toStringAsFixed(2);
     return Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
@@ -144,7 +144,7 @@ class UserStatistics extends StatelessWidget {
               color: Colors.black,
             ),
             title: Text(
-              "$meanScore",
+              "${meanScore}",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Text("Nota média"),

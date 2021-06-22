@@ -22,22 +22,22 @@ class FirebaseAuthenticationService {
     return UserModel(user.uid);
   }
 
-  signInWithEmailAndPassword({String email, String password}) async{
-    UserCredential authResult = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+  signInWithEmailAndPassword({String email, String password}) async {
+    UserCredential authResult = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
     User user = authResult.user;
     return UserModel(user.uid);
   }
 
-  createUserWithEmailAndPassword({String email, String password, String username}) async{
-    UserCredential authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+  createUserWithEmailAndPassword({String email, String password}) async {
+    UserCredential authResult = await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password);
     User user = authResult.user;
-    FirebaseRemoteServer.helper.includeUserData(user.uid, email, username);
+    // FirebaseRemoteServer.helper.includeUserData(user.uid, email, username);
     return UserModel(user.uid);
   }
 
-  signOut() async{
+  signOut() async {
     await _firebaseAuth.signOut();
   }
-
-  
 }

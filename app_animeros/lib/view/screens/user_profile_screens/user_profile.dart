@@ -41,7 +41,8 @@ class _UserProfileState extends State<UserProfile> {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(user.email, style: TextStyle(fontSize: 16)),
+          child: Text(user.email == null ? 'Usuário anônimo' : user.email,
+              style: TextStyle(fontSize: 16)),
         ),
       ]),
     );
@@ -118,7 +119,7 @@ class _UserProfileState extends State<UserProfile> {
               context: _context,
               builder: (context) => AlertDialog(
                     title: Text("Ajuda"),
-                    content: Text("Informações do aplicativo"),
+                    content: Text("Informações do aplicativo:\nVersão: 0.0.1"),
                     actions: [
                       TextButton(
                           onPressed: () {

@@ -38,36 +38,36 @@ class _UserRegisterState extends State<UserRegister> {
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 45.0),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Insira o seu nome de usuário",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black)),
-                          hintText: "Nome de usuário",
-                          helperText: "Máximo de 50 caracteres",
-                          suffixIcon: Icon(Icons.person),
-                        ),
-                        validator: (String inValue) {
-                          if (inValue.length == 0) {
-                            return "Please enter username";
-                          }
-                          return null;
-                        },
-                        onSaved: (String inValue) {
-                          registerData.nickname = inValue;
-                        },
-                      ),
-                      SizedBox(height: 25.0),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: Align(
+                      //       alignment: Alignment.centerLeft,
+                      //       child: Text(
+                      //         "Insira o seu nome de usuário",
+                      //         style: TextStyle(fontWeight: FontWeight.bold),
+                      //       )),
+                      // ),
+                      // TextFormField(
+                      //   decoration: InputDecoration(
+                      //     filled: true,
+                      //     fillColor: Colors.white,
+                      //     border: OutlineInputBorder(
+                      //         borderSide: BorderSide(color: Colors.black)),
+                      //     hintText: "Nome de usuário",
+                      //     helperText: "Máximo de 50 caracteres",
+                      //     suffixIcon: Icon(Icons.person),
+                      //   ),
+                      //   validator: (String inValue) {
+                      //     if (inValue.length == 0) {
+                      //       return "Please enter username";
+                      //     }
+                      //     return null;
+                      //   },
+                      //   onSaved: (String inValue) {
+                      //     registerData.nickname = inValue;
+                      //   },
+                      // ),
+                      // SizedBox(height: 25.0),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Align(

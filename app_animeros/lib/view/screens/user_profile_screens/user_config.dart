@@ -32,9 +32,9 @@ class _UserConfigState extends State<UserConfig> {
       child: Column(
         children: [
           generateDarkModeSwitch(),
-          generateChangeEmailTextField(),
-          generateChangeUsenameTextFiled(),
-          generateUpdateButton()
+          // generateChangeEmailTextField(),
+          // generateChangeUsenameTextFiled(),
+          // generateUpdateButton()
         ],
       ),
     );

@@ -225,9 +225,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 Text(
-                                    season.animeList == null
-                                        ? "Carregando"
-                                        : "Data de lançamento: ${getCorrectFormatDate(season.animeList[index].airingStart)}",
+                                    season.animeList[index].airingStart == null
+                                        ? "Data de lançamento: sem data"
+                                        : "Data de lançamento:\n${getCorrectFormatDate(season.animeList[index].airingStart)}",
                                     style: TextStyle(fontSize: 16)),
                                 // TESTE
                                 // Text(season.animeList == null

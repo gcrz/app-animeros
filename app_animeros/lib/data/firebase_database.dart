@@ -9,9 +9,9 @@ class FirebaseRemoteServer {
   final CollectionReference animeList =
       FirebaseFirestore.instance.collection("user");
 
-  includeUserData(String uid, String email, String nome) async {
-    await animeList.doc(uid).set({"email": email, "nome": nome});
-  }
+  // includeUserData(String uid, String email, String nome) async {
+  //   await animeList.doc(uid).set({"email": email, "nome": nome});
+  // }
 
   //Falta a model Anime
   List _animeListFromSnapshot(QuerySnapshot snapshot) {
