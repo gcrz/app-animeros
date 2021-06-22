@@ -1,3 +1,4 @@
+import 'package:app_animeros/data/firebase_database.dart';
 import 'package:app_animeros/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -27,10 +28,10 @@ class FirebaseAuthenticationService {
     return UserModel(user.uid);
   }
 
-  createUserWithEmailAndPassword({String email, String password}) async{
+  createUserWithEmailAndPassword({String email, String password, String username}) async{
     UserCredential authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
     User user = authResult.user;
-    // FirebaseRemoteServer.helper.includeUserData(user.uid, email);
+    FirebaseRemoteServer.helper.includeUserData(user.uid, email, username);
     return UserModel(user.uid);
   }
 
