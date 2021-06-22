@@ -1,7 +1,6 @@
 import 'package:app_animeros/logic/manage_auth/auth_bloc.dart';
 import 'package:app_animeros/logic/manage_auth/auth_event.dart';
 import 'package:app_animeros/view/screens/user_profile_screens/user_config.dart';
-import 'package:app_animeros/view/screens/register_login_screens/user_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +11,7 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  
-  
+  final user = FirebaseAuth.instance.currentUser;
   BuildContext _context;
   @override
   Widget build(BuildContext context) {
@@ -37,13 +35,13 @@ class _UserProfileState extends State<UserProfile> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Nome de Usuário",
+            "E-mail",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text("E-mail", style: TextStyle(fontSize: 16)),
+          child: Text(user.email, style: TextStyle(fontSize: 16)),
         ),
       ]),
     );
